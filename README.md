@@ -1,4 +1,4 @@
-# WorkoutWiz Backend
+# Workout-wiz Backend
 
 A smart fitness tracking application with AI-powered workout plan generation.
 
