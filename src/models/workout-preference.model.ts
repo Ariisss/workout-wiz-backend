@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database";
 
-const preferences = sequelize.define('Preferences', {
+const Preferences = sequelize.define('Preferences', {
     preference_id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -33,4 +33,4 @@ const preferences = sequelize.define('Preferences', {
     timestamps: true
 });
 
-export default preferences;
+export default Preferences;
