@@ -13,7 +13,7 @@ const Preferences = sequelize.define('Preferences', {
         allowNull: false
     },
     goal_type: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM('Weight Loss', 'Muscle Gain', 'Endurance', 'Flexibility', 'Balance'),
         allowNull: false
     },
     with_gym: {
@@ -21,11 +21,11 @@ const Preferences = sequelize.define('Preferences', {
         allowNull: false
     },
     workout_days: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
     },
     intensity: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM('Beginner', 'Intermediate', 'Advanced'),
         allowNull: false
     }
 }, {
