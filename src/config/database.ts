@@ -12,4 +12,16 @@ const sequelize = new Sequelize(env.DATABASE_URL, {
     }
 })
 
+// comment this out if successful na
+async function testSequelize(): Promise<void> {
+    try {
+        await sequelize.authenticate();
+        console.log('Connection has been established successfully.');
+    } catch (error) {
+        console.error('Unable to connect to the database:', error);
+    }
+}
+
+testSequelize()
+
 export default sequelize
