@@ -31,6 +31,7 @@ const AIGenerationLog = sequelize.define('AIGenerationLog', {
         defaultValue: 'completed'
     }
 }, {
+    tableName: 'ai_generation_logs',
     underscored: true,
     timestamps: true
 });
