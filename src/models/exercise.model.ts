@@ -18,7 +18,7 @@ const Exercise = sequelize.define('Exercise', {
         allowNull: false
     },
     default_duration: {
-        type: DataTypes.INTEGER, // minutes
+        type: DataTypes.FLOAT, // minutes
         allowNull: false
     }
 }, {

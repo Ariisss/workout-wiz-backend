@@ -22,7 +22,7 @@ const ExerciseLog = sequelize.define('ExerciseLog', {
         defaultValue: DataTypes.NOW
     },
     duration_mins: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false
     },
     calories_burned: {
