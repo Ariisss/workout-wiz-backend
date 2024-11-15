@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database";
+import { GOAL_TYPES, INTENSITY_LEVELS } from "../types/workout-types";
 
 const Preferences = sequelize.define('Preferences', {
     preference_id: {
@@ -13,7 +14,7 @@ const Preferences = sequelize.define('Preferences', {
         allowNull: false
     },
     goal_type: {
-        type: DataTypes.ENUM('Weight Loss', 'Muscle Gain', 'Endurance', 'Flexibility', 'Balance'),
+        type: DataTypes.ENUM(...Object.values(GOAL_TYPES)),
         allowNull: false
     },
     with_gym: {
@@ -25,7 +26,7 @@ const Preferences = sequelize.define('Preferences', {
         allowNull: false
     },
     intensity: {
-        type: DataTypes.ENUM('Beginner', 'Intermediate', 'Advanced'),
+        type: DataTypes.ENUM(...Object.values(INTENSITY_LEVELS)),
         allowNull: false
     }
 }, {
