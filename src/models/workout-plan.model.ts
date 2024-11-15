@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database";
-
+import { GOAL_TYPES } from "../types/workout-types";
 const WorkoutPlan = sequelize.define(
     'WorkoutPlan',
     {
@@ -23,7 +23,7 @@ const WorkoutPlan = sequelize.define(
             allowNull: false
         },
         goal: {
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM(...Object.values(GOAL_TYPES)),
             allowNull: false
         },
         duration_weeks: {
