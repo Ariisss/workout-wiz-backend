@@ -9,3 +9,14 @@ export async function hashPassword(password: string): Promise<string> {
         throw new Error('Password hashing failed');
     }
 }
+
+export async function comparePasswords(
+    plainPassword: string, 
+    hashedPassword: string
+): Promise<boolean> {
+    try {
+        return await bcrypt.compare(plainPassword, hashedPassword);
+    } catch (error) {
+        throw new Error('Password comparison failed');
+    }
+}
