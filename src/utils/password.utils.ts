@@ -20,3 +20,9 @@ export async function comparePasswords(
         throw new Error('Password comparison failed');
     }
 }
+
+export function validatePassword(password: string): boolean {
+    // min 8 characters, 1 uppercase, 1 lowercase, 1 number
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    return passwordRegex.test(password);
+}
