@@ -3,22 +3,27 @@ import env from './config/environment';
 import sequelize from './config/database';
 import { testSequelize } from './config/database';
 import { setupAssociations } from './models';
+import authRoutes from './routes/auth.routes'
 const app: Express = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// routes
+app.use('/auth', authRoutes)
 
 // database init and server start
 async function startServer(): Promise<void> {
     try {
 
         //comment this out if successful one time or when u change something in the models
-        await testSequelize();
+        // await testSequelize();
         
         setupAssociations();
-        
+        // console.log("www")
+
         // comment out nsd ni if wala natay changes
-        await sequelize.sync({force: true});
+        // await sequelize.sync();
         
         app.listen(env.PORT, () => {
             console.log(`Server is running on port ${env.PORT}`);
