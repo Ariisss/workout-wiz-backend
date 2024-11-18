@@ -17,7 +17,6 @@ export const register = async (user: UserRegisterType) => {
     const newUser = await User.create({ ...user, password: hashedPassword });
 
     const { password, ...userWithoutPassword } = newUser.get() as UserType;
-    const token = generateToken({ id: userWithoutPassword.id });
 
-    return { user: userWithoutPassword, token };
+    return userWithoutPassword;
 }
