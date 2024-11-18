@@ -13,7 +13,7 @@ export const register = async (user: UserRegisterType) => {
 
     if (!validatePassword(user.password)) {
         // console.log('USDFOASDF');
-        throw new Error('USDFOASDF');
+        throw new Error('Password must contain at least 8 characters, 1 uppercase, 1 lowercase, and 1 number');
     }
 
     // console.log("JKLJKL")
@@ -23,5 +23,12 @@ export const register = async (user: UserRegisterType) => {
     // console.log("test")
     const { password, ...userWithoutPassword } = newUser.get() as UserType;
 
-    return userWithoutPassword;
+    return {
+        user: {
+            id: userWithoutPassword.user_id,
+            email: userWithoutPassword.email,
+            username: userWithoutPassword.username
+        },
+        token: generateToken(userWithoutPassword.user_id)
+    };
 }

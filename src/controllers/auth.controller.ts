@@ -4,19 +4,10 @@ import { generateToken } from "../utils/jwt.utils";
 
 export const registerController = async (req: Request, res: Response) => {
     try {
-        const user = await register(req.body);
+        const result = await register(req.body);
         res.status(201).json({ 
             success: true,
-            data: {
-                user: {
-                    "id": 1,
-                    "username": "johndoe",
-                    "email": "john@example.com",
-                    "first_name": "John",
-                    "last_name": "Doe"
-                },
-                token: generateToken(user.id)
-            },
+            data: result,
             message: 'Registration successful'
         });
     } catch (error: any) {
