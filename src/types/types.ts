@@ -1,7 +1,7 @@
 
 // user type
 export interface UserType {
-    id: string;
+    id: number;
     firstName: string;
     lastName: string;
     username: string;
