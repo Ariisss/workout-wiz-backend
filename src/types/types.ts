@@ -1,4 +1,3 @@
-
 // user type
 export interface UserType {
     user_id: number;
@@ -18,3 +17,11 @@ export interface UserType {
 // for user reg
 export interface UserRegisterType extends Omit<UserType, 'id' | 'createdAt' | 'updatedAt'> {}
 
+export interface JwtPayload {
+  id: number;
+}
+
+export interface UserLoginType {
+  email: string;
+  password: string;
+}
