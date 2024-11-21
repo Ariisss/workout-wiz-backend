@@ -19,9 +19,15 @@ export interface UserRegisterType extends Omit<UserType, 'id' | 'createdAt' | 'u
 
 export interface JwtPayload {
   id: number;
+  email: string;
+  username: string;
 }
 
 export interface UserLoginType {
   email: string;
   password: string;
 }
+
+export interface AuthenticatedRequest extends Request {
+  user?: JwtPayload;
+} 
