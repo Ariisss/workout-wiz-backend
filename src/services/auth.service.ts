@@ -30,6 +30,7 @@ export const register = async (user: UserRegisterType) => {
     }
 
     return {
+        user: payload,
         token: generateToken(payload)
     };
 }
