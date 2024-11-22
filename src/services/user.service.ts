@@ -49,9 +49,3 @@ export const updateHealthMetrics = async (userId: number, updatedMetrics: Partia
     }
     return await user.update(updatedMetrics);
 }
-
-// validate username
-// takes username string and returns boolean
-
-// validate email
-// takes email string and returns boolean
