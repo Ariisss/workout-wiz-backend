@@ -32,9 +32,17 @@ export const changePassword = async (userId: number, newPassword: string) => {
 
 // delete user
 // takes userId and performs cleanup/deletion
+export const deleteUser = async (userId: number) => {
+    const user = await User.findByPk(userId);
+    if (!user) {
+        throw new Error("User not found");
+    }
+    return await user.destroy();
+}
 
 // update user health metrics
 // takes userId and updated weight/height/age, returns updated user
+
 
 // validate username
 // takes username string and returns boolean
