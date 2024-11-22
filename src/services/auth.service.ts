@@ -1,6 +1,6 @@
 import { comparePasswords, hashPassword, validatePassword } from "../utils/password.utils";
 import { generateToken, verifyToken } from "../utils/jwt.utils";
-import { UserType, UserRegisterType } from "../types/types";
+import { UserType, UserRegisterType, JwtPayload } from "../types/types";
 import { User } from "../models";
 
 export const register = async (user: UserRegisterType) => {
@@ -23,12 +23,13 @@ export const register = async (user: UserRegisterType) => {
     // console.log("test")
     const { password, ...userWithoutPassword } = newUser.get() as UserType;
 
+    const payload: JwtPayload = {
+        id: userWithoutPassword.user_id,
+        email: userWithoutPassword.email,
+        username: userWithoutPassword.username
+    }
+
     return {
-        user: {
-            id: userWithoutPassword.user_id,
-            email: userWithoutPassword.email,
-            username: userWithoutPassword.username
-        },
-        token: generateToken(userWithoutPassword.user_id)
+        token: generateToken(payload)
     };
 }

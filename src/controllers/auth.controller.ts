@@ -7,7 +7,7 @@ export const registerController = async (req: Request, res: Response) => {
         const result = await register(req.body);
         res.status(201).json({ 
             success: true,
-            data: result,
+            data: result.token,
             message: 'Registration successful'
         });
     } catch (error: any) {
