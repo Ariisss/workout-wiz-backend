@@ -1,6 +1,6 @@
 import { comparePasswords, hashPassword, validatePassword } from "../utils/password.utils";
 import { generateToken, verifyToken } from "../utils/jwt.utils";
-import { UserType, UserRegisterType, JwtPayload } from "../types/types";
+import { UserType, UserRegisterType, JwtPayload, UserLoginType } from "../types/types";
 import { User } from "../models";
 
 export const register = async (user: UserRegisterType) => {
@@ -18,6 +18,7 @@ export const register = async (user: UserRegisterType) => {
 
     // console.log("JKLJKL")
     const hashedPassword = await hashPassword(user.password);
+
     const newUser = await User.create({ ...user, password: hashedPassword });
 
     // console.log("test")
@@ -34,3 +35,35 @@ export const register = async (user: UserRegisterType) => {
         token: generateToken(payload)
     };
 }
+
+export const login = async (user: UserLoginType) => {
+    const existingUser = await User.findOne({ where: { email: user.email } });
+    if (!existingUser) {
+        throw new Error('User with this email does not exist');
+    }
+
+    const userData = existingUser.get() as UserType;
+
+    // console.log('pass:', user.password);
+    // console.log('hash:', userData.password);
+
+    const checkPassword = await comparePasswords(user.password, userData.password)
+
+    // console.log("checkPassword: ", checkPassword)
+
+    if(!checkPassword) {
+        throw new Error('Invalid password');
+    }
+
+    const payload: JwtPayload = {
+        id: userData.user_id,
+        email: userData.email,
+        username: userData.username
+    }
+
+    return {
+        user: payload,
+        token: generateToken(payload)
+    }
+}
+

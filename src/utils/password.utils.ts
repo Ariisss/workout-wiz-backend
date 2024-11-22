@@ -2,8 +2,8 @@ import bcrypt from 'bcrypt';
 
 export async function hashPassword(password: string): Promise<string> {
     try {
-        const SALT_ROUNDS = await bcrypt.genSalt(10);
-        return await bcrypt.hash(password, SALT_ROUNDS);
+        // const SALT_ROUNDS = await bcrypt.genSalt(10);
+        return await bcrypt.hash(password, 10);
     } catch (error) {
         throw new Error('Password hashing failed');
     }
