@@ -4,7 +4,7 @@ import { JwtPayload } from '../types/types';
 import { AuthenticatedRequest } from '../types/types';
 
 // validate jwt tokens
-function authMiddleware(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+export function authMiddleware(req: AuthenticatedRequest, res: Response, next: NextFunction) {
 
   const token = req.headers.authorization?.split(' ')[1];
 
