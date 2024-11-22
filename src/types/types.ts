@@ -1,3 +1,5 @@
+import { Request } from 'express';
+
 // user type
 export interface UserType {
     user_id: number;
@@ -29,5 +31,5 @@ export interface UserLoginType {
 }
 
 export interface AuthenticatedRequest extends Request {
-  user?: JwtPayload;
+  user: JwtPayload;
 } 
