@@ -42,7 +42,13 @@ export const deleteUser = async (userId: number) => {
 
 // update user health metrics
 // takes userId and updated weight/height/age, returns updated user
-
+export const updateHealthMetrics = async (userId: number, updatedMetrics: Partial<UserType>) => {
+    const user = await User.findByPk(userId);
+    if (!user) {
+        throw new Error("User not found");
+    }
+    return await user.update(updatedMetrics);
+}
 
 // validate username
 // takes username string and returns boolean
