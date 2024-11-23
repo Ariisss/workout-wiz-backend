@@ -7,29 +7,33 @@ export const updateUser = async (req: Request, res: Response) => {
         const updatedFields = req.body;
 
         if (!userId) {
-            return res.status(400).json({ error: 'id is required' });
+             res.status(400).json({ error: 'id is required' });
+             return
         }
 
         const parsedUserId = parseInt(userId);
         if (isNaN(parsedUserId)) {
-            return res.status(400).json({ error: 'invalid id format' });
+             res.status(400).json({ error: 'invalid id format' });
+             return
         }
 
         const user = await update(parsedUserId, updatedFields);
         
         if (!user) {
-            return res.status(404).json({ error: 'User not found' });
+            res.status(404).json({ error: 'User not found' });
+            return
         }
 
-        return res.status(200).json({
+         res.status(200).json({
             success: true,
             message: 'User updated successfully',
         });
     } catch (error) {
         if (error instanceof Error) {
-            return res.status(400).json({ error: error.message });
+            res.status(400).json({ error: error.message });
+            return
         }
-        return res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: 'Internal server error' });
     }
 }
 
@@ -39,29 +43,33 @@ export const updatePassword = async (req: Request, res: Response) => {
         const { newPassword } = req.body;
 
         if (!userId) {
-            return res.status(400).json({ error: 'id is required' });
+            res.status(400).json({ error: 'id is required' });
+            return
         }
 
         const parsedUserId = parseInt(userId);
         if (isNaN(parsedUserId)) {
-            return res.status(400).json({ error: 'invalid id format' });
+            res.status(400).json({ error: 'invalid id format' });
+            return
         }
 
         const user = await changePassword(parsedUserId, newPassword);
 
         if (!user) {
-            return res.status(404).json({ error: 'User not found' });
+            res.status(404).json({ error: 'User not found' });
+            return
         }
 
-        return res.status(200).json({
+         res.status(200).json({
             success: true,
             message: 'Password updated successfully',
         });
     }catch(error){
         if (error instanceof Error) {
-            return res.status(400).json({ error: error.message });
+            res.status(400).json({ error: error.message });
+            return
         }
-        return res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: 'Internal server error' });
     }
 }
 
@@ -70,26 +78,29 @@ export const removeUser = async (req: Request, res: Response) => {
         const { userId } = req.params;
 
         if (!userId) {
-            return res.status(400).json({ error: 'id is required' });
+            res.status(400).json({ error: 'id is required' });
+            return
         }
 
         const parsedUserId = parseInt(userId);
         if (isNaN(parsedUserId)) {
-            return res.status(400).json({ error: 'invalid id format' });
+            res.status(400).json({ error: 'invalid id format' });
+            return
         }
 
         const user = await deleteUser(parsedUserId);
 
-        return res.status(200).json({
+         res.status(200).json({
             success: true,
             message: 'User deleted successfully',
         });
 
     }catch(error){
         if (error instanceof Error) {
-            return res.status(400).json({ error: error.message });
+            res.status(400).json({ error: error.message });
+            return
         }
-        return res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: 'Internal server error' });
     }
 }
 
