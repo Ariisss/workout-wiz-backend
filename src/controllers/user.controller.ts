@@ -21,7 +21,10 @@ export const updateUser = async (req: Request, res: Response) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        return res.status(200).json(user);
+        return res.status(200).json({
+            success: true,
+            message: 'User updated successfully',
+        });
     } catch (error) {
         if (error instanceof Error) {
             return res.status(400).json({ error: error.message });
@@ -50,7 +53,10 @@ export const updatePassword = async (req: Request, res: Response) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        return res.status(200).json(user);
+        return res.status(200).json({
+            success: true,
+            message: 'Password updated successfully',
+        });
     }catch(error){
         if (error instanceof Error) {
             return res.status(400).json({ error: error.message });
