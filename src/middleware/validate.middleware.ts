@@ -36,3 +36,19 @@ export function validate(schemas: ValidateOptions) {
       }
     };
 }
+
+// example response ni if error:
+// {
+//   "status": "error",
+//   "message": "Validation failed",
+//   "errors": [
+//     {
+//       "field": "email",
+//       "message": "\"email\" must be a valid email"
+//     },
+//     {
+//       "field": "password",
+//       "message": "\"password\" length must be at least 6 characters long"
+//     }
+//   ]
+// }
