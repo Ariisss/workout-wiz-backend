@@ -4,6 +4,7 @@ import sequelize from './config/database';
 import { testSequelize } from './config/database';
 import { setupAssociations } from './models';
 import authRoutes from './routes/auth.routes'
+import userRoutes from './routes/user.routes';
 const app: Express = express();
 
 app.use(express.json());
@@ -11,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // routes
 app.use('/auth', authRoutes)
+app.use('/user', userRoutes)
 
 // database init and server start
 async function startServer(): Promise<void> {
