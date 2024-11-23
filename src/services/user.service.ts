@@ -9,7 +9,7 @@ export const getUser = async (userId: number) => {
 
 // update user
 // takes userId and updated fields, returns updated user
-export const updateUser = async (userId: number, updatedFields: Partial<UserType>) => {
+export const update = async (userId: number, updatedFields: Partial<UserType>) => {
     const user = await User.findByPk(userId);
     if (!user) {
         throw new Error("User not found");
