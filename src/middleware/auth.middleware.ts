@@ -1,10 +1,17 @@
-import { Request, Response, NextFunction, RequestHandler } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../utils/jwt.utils';
 import { JwtPayload } from '../types/types';
-import { AuthenticatedRequest } from '../types/types';
+
+declare global{
+  namespace Express{
+    interface Request{
+      user: JwtPayload
+    }
+  }
+}
 
 // validate jwt tokens
-export function authMiddleware(req: AuthenticatedRequest, res: Response, next: NextFunction) {
+export function authMiddleware(req: Request, res: Response, next: NextFunction) {
 
   const token = req.headers.authorization?.split(' ')[1];
 
