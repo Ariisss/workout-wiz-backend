@@ -4,7 +4,8 @@ import { WorkoutPreferenceType } from "../types/types";
 export const createWorkoutPreference = async (req: Request, res: Response) => {
     try{
         if (!req.user?.id) {
-            return res.status(401).json({ error: 'User not authenticated' });
+            res.status(401).json({ error: 'User not authenticated' });
+            return
         }
 
         const workoutPreference: WorkoutPreferenceType = {
