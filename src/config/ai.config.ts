@@ -5,14 +5,12 @@ const genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY);
 
 export const workoutPlanSchema = {
     description: "Workout Plan",
-    type: SchemaType.ARRAY,
-    items: {
-        type: SchemaType.OBJECT,
-        properties: {
-            "Plan Name": {
-                type: SchemaType.STRING,
-                description: "Name of the workout plan",
-                nullable: false,
+    type: SchemaType.OBJECT,
+    properties: {
+        "Plan Name": {
+            type: SchemaType.STRING,
+            description: "Name of the workout plan",
+            nullable: false,
             },
             Description: {
                 type: SchemaType.STRING,
@@ -27,6 +25,11 @@ export const workoutPlanSchema = {
             Duration_Weeks: {
                 type: SchemaType.NUMBER,
                 description: "Duration of the workout plan in weeks",
+                nullable: false,
+            },
+            Workout_Days: {
+                type: SchemaType.STRING,
+                description: "Days of the week to perform the workout",
                 nullable: false,
             },
             Intensity: {
@@ -51,12 +54,12 @@ export const workoutPlanSchema = {
                             nullable: false,
                         },
                         Sets: {
-                            type: SchemaType.NUMBER,
+                            type: SchemaType.INTEGER,
                             description: "Number of sets",
                             nullable: false,
                         },
                         Reps: {
-                            type: SchemaType.NUMBER,
+                            type: SchemaType.INTEGER,
                             description: "Number of repetitions per set",
                             nullable: false,
                         },
@@ -66,11 +69,10 @@ export const workoutPlanSchema = {
                             nullable: false,
                         }
                     }
-                }
+                },
             }
-        }
     }
-};
+}
 
 
 export default genAI;
