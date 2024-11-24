@@ -30,6 +30,7 @@ const Preferences = sequelize.define('Preferences', {
         allowNull: false
     }
 }, {
+    tableName: "workout_preferences",
     underscored: true,
     timestamps: true
 });
