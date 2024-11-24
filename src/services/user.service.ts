@@ -25,7 +25,7 @@ export const changePassword = async (userId: number, newPassword: string) => {
         throw new Error("User not found");
     }
 
-    const hashedPassword = hashPassword(newPassword);
+    const hashedPassword = await hashPassword(newPassword);
 
     return await user.update({ password: hashedPassword });
 }
