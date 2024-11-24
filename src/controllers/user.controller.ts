@@ -3,37 +3,26 @@ import { update, changePassword, deleteUser, updateHealthMetrics } from "../serv
 
 export const updateUser = async (req: Request, res: Response) => {
     try {
-        const { userId } = req.params;
-        const updatedFields = req.body;
-
-        if (!userId) {
-             res.status(400).json({ error: 'id is required' });
-             return
+        const parsedUserId = parseInt(req.params.userId);
+        if (!parsedUserId || isNaN(parsedUserId)) {
+            res.status(400).json({ error: 'Invalid user ID' });
+            return;
         }
 
-        const parsedUserId = parseInt(userId);
-        if (isNaN(parsedUserId)) {
-             res.status(400).json({ error: 'invalid id format' });
-             return
-        }
-
-        const user = await update(parsedUserId, updatedFields);
-        
+        const user = await update(parsedUserId, req.body);
         if (!user) {
             res.status(404).json({ error: 'User not found' });
-            return
+            return;
         }
 
-         res.status(200).json({
+        res.status(200).json({
             success: true,
-            message: 'User updated successfully',
+            message: 'User updated successfully'
         });
     } catch (error) {
-        if (error instanceof Error) {
-            res.status(400).json({ error: error.message });
-            return
-        }
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ 
+            error: error instanceof Error ? error.message : 'Internal server error'
+        });
     }
 }
 
