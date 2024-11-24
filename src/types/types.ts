@@ -37,9 +37,10 @@ export interface AuthenticatedRequest extends Request {
 
 // workout preference types
 export interface WorkoutPreferenceType {
-    user_id: number;
-    goal_type: GoalType;
-    with_gym: boolean;
-    workout_days: string;
-    intensity: IntensityLevel;
+  preference_id: number;
+  user_id: number;
+  goal_type: GoalType;
+  with_gym: boolean;
+  workout_days: string;
+  intensity: IntensityLevel;
 }   
