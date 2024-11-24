@@ -1,5 +1,15 @@
 import { Request, Response } from "express";
-import { update, changePassword, deleteUser, updateHealthMetrics } from "../services/user.service";
+import { update, changePassword, deleteUser, updateHealthMetrics, getUser } from "../services/user.service";
+
+export const retrieveUser = async (req: Request, res: Response) => {
+    const parsedUserId = parseInt(req.params.userId);
+    const user = await getUser(parsedUserId);
+    if(!user){
+        res.status(404).json({ error: 'User not found' });
+        return
+    }
+    res.status(200).json(user);
+}
 
 export const updateUser = async (req: Request, res: Response) => {
     try {
