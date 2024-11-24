@@ -9,8 +9,8 @@ export const getWorkoutPreference = async (userId: number) => {
     return await Preferences.findAll({ where: { user_id: userId } });
 }
 
-export const updateWorkoutPreference = async (workoutPreference: WorkoutPreferenceType) => {
-    return await Preferences.update(workoutPreference, { where: { preference_id: workoutPreference.preference_id } });
+export const updateWorkoutPreference = async (workoutPreference: WorkoutPreferenceType, preferenceId: number) => {
+    return await Preferences.update(workoutPreference, { where: { preference_id: preferenceId } });
 }
 
 export const deleteWorkoutPreference = async (preferenceId: number) => {
