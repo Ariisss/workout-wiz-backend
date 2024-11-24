@@ -8,7 +8,7 @@ export const updateUser = async (req: Request, res: Response) => {
             res.status(400).json({ error: 'Invalid user ID' });
             return;
         }
-
+ 
         const user = await update(parsedUserId, req.body);
         if (!user) {
             res.status(404).json({ error: 'User not found' });
@@ -28,23 +28,14 @@ export const updateUser = async (req: Request, res: Response) => {
 
 export const updatePassword = async (req: Request, res: Response) => {
     try{
-        const { userId } = req.params;
-        const { newPassword } = req.body;
-
-        if (!userId) {
-            res.status(400).json({ error: 'id is required' });
+        const parsedUserId = parseInt(req.params.userId); 
+        if(!parsedUserId || isNaN(parsedUserId)){
+            res.status(400).json({ error: 'Invalid user ID' });
             return
         }
 
-        const parsedUserId = parseInt(userId);
-        if (isNaN(parsedUserId)) {
-            res.status(400).json({ error: 'invalid id format' });
-            return
-        }
-
-        const user = await changePassword(parsedUserId, newPassword);
-
-        if (!user) {
+        const user = await changePassword(parsedUserId, req.body.newPassword);
+        if(!user){
             res.status(404).json({ error: 'User not found' });
             return
         }
