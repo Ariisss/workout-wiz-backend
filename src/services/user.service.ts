@@ -26,7 +26,7 @@ export const changePassword = async (userId: number, newPassword: string) => {
     }
 
     const hashedPassword = await hashPassword(newPassword);
-
+    
     return await user.update({ password: hashedPassword });
 }
 
@@ -37,7 +37,14 @@ export const deleteUser = async (userId: number) => {
     if (!user) {
         throw new Error("User not found");
     }
-    return await user.destroy();
+    
+    try{
+        await user.destroy();
+        return true
+    }catch(error){
+        return false
+    }
+
 }
 
 // update user health metrics
