@@ -1,7 +1,6 @@
 import User from './user.model';
 import Preferences from './workout-preference.model';
 import AIGenerationLog from './ai-log.model';
-import Exercise from './exercise.model';
 import ExerciseLog from './exercise-log.model';
 import WorkoutPlan from './workout-plan.model';
 import PlanExercise from './plan-exercise.model';
@@ -48,16 +47,6 @@ function setupAssociations(): void {
         as: 'workoutPlan'
     });
 
-    // exercises n plan exercises
-    Exercise.hasMany(PlanExercise, {
-        foreignKey: 'exercise_id',
-        as: 'planExercises'
-    });
-    PlanExercise.belongsTo(Exercise, {
-        foreignKey: 'exercise_id',
-        as: 'exercise'
-    });
-
     // users n exercise logs
     User.hasMany(ExerciseLog, {
         foreignKey: 'user_id',
@@ -69,11 +58,11 @@ function setupAssociations(): void {
     });
 
     // exercises n exercise logs
-    Exercise.hasMany(ExerciseLog, {
+    PlanExercise.hasMany(ExerciseLog, {
         foreignKey: 'exercise_id',
         as: 'exerciseLogs'
     });
-    ExerciseLog.belongsTo(Exercise, {
+    ExerciseLog.belongsTo(PlanExercise, {
         foreignKey: 'exercise_id',
         as: 'exercise'
     });
@@ -83,7 +72,6 @@ export {
     User,
     Preferences,
     WorkoutPlan,
-    Exercise,
     ExerciseLog,
     PlanExercise,
     AIGenerationLog,
