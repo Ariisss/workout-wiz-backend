@@ -12,7 +12,7 @@ const ExerciseLog = sequelize.define('ExerciseLog', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    exercise_id: {
+    plan_exercise_id: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
