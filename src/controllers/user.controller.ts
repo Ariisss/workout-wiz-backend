@@ -68,7 +68,11 @@ export const removeUser = async (req: Request, res: Response) => {
             return
         }
 
-        const user = await deleteUser(parsedUserId);
+        const success = await deleteUser(parsedUserId);
+        if(!success){
+            res.status(404).json({ error: 'Deletion failed' });
+            return
+        }
 
          res.status(200).json({
             success: true,
