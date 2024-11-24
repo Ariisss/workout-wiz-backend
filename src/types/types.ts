@@ -1,4 +1,5 @@
 import { Request } from 'express';
+import { GoalType, IntensityLevel } from './workout-types';
 
 // user type
 export interface UserType {
@@ -33,3 +34,12 @@ export interface UserLoginType {
 export interface AuthenticatedRequest extends Request {
   user: JwtPayload;
 } 
+
+// workout preference types
+export interface WorkoutPreferenceType {
+    user_id: number;
+    goal_type: GoalType;
+    with_gym: boolean;
+    workout_days: string;
+    intensity: IntensityLevel;
+}   
