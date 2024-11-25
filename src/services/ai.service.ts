@@ -35,7 +35,8 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
                         "Description": "Clear, concise instructions",
                         "Sets": Strictly integer,
                         "Reps": Strictly integer,
-                        "Workout Day": "Monday"
+                        "Workout Day": "Monday",
+                        "MET Value": Strictly float
                     }
                     // Repeat for exactly 7 exercises per workout day
                 ]
