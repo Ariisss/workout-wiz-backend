@@ -44,3 +44,14 @@ export interface WorkoutPreferenceType {
   workout_days: string;
   intensity: IntensityLevel;
 }   
+
+export interface WorkoutPlanType {
+  plan_id: number;
+  user_id: number;
+  plan_name: string;
+  description: string;
+  goal: GoalType;
+  duration_weeks: number;
+  workout_days: string;
+  intensity: IntensityLevel;
+}
