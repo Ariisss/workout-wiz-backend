@@ -13,4 +13,10 @@ export const getWorkoutPlanById = async (plan_id: number) => {
     return await WorkoutPlan.findByPk(plan_id);
 }
 
+export const updateWorkoutPlan = async (plan_id: number, workoutPlan: Omit<WorkoutPlanType, 'plan_id'>) => {
+    return await WorkoutPlan.update(workoutPlan, { where: { plan_id } });
+}
 
+export const deleteWorkoutPlan = async (plan_id: number) => {
+    return await WorkoutPlan.destroy({ where: { plan_id } });
+}
