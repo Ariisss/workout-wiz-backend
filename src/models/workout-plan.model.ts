@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/database";
-import { GOAL_TYPES } from "../types/workout-types";
+import { GOAL_TYPES, INTENSITY_LEVELS } from "../types/workout-types";
+
 const WorkoutPlan = sequelize.define(
     'WorkoutPlan',
     {
@@ -31,7 +32,7 @@ const WorkoutPlan = sequelize.define(
             allowNull: false
         },
         intensity: {
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM(...Object.values(INTENSITY_LEVELS)),
             allowNull: false
         },
         is_active: {
