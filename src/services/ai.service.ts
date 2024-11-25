@@ -1,6 +1,7 @@
 import genAI from '../config/ai.config';
 import { WorkoutPreferenceType } from '../types/types';
 import { AIGenerationLog } from '../models';
+import { createAILog } from './ai-log.service';
 
 export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
     const prompt = `Create a personalized workout plan with these requirements:
@@ -90,12 +91,7 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
             throw new Error('Response is not an array');
         }
 
-        await AIGenerationLog.create({
-            user_id: preferences.user_id,
-            prompt,
-            response: cleanedText,
-            status: 'completed'
-        });
+        await createAILog(preferences.user_id, prompt, cleanedText, 'completed');
 
         return parsedResponse;
     } catch (error) {
