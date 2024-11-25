@@ -93,9 +93,20 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
         }
 
         await createAILog(preferences.user_id, prompt, cleanedText, 'completed');
-        await createWorkoutPlan(parsedResponse[0]);
 
-        
+        const workoutPlan = {
+            user_id: preferences.user_id,
+            plan_name: parsedResponse[0]["Plan Name"],
+            description: parsedResponse[0].Description,
+            goal: parsedResponse[0].Goal,
+            duration_weeks: parsedResponse[0].Duration_Weeks,
+            workout_days: parsedResponse[0].Workout_Days,
+            intensity: parsedResponse[0].Intensity
+        };
+
+        await createWorkoutPlan(workoutPlan);
+
+
 
         return parsedResponse;
     } catch (error) {
