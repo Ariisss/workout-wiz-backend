@@ -2,6 +2,7 @@ import genAI from '../config/ai.config';
 import { WorkoutPreferenceType } from '../types/types';
 import { AIGenerationLog } from '../models';
 import { createAILog } from './ai-log.service';
+import { createWorkoutPlan } from './workout-plan.service';
 
 export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
     const prompt = `Create a personalized workout plan with these requirements:
@@ -92,6 +93,9 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
         }
 
         await createAILog(preferences.user_id, prompt, cleanedText, 'completed');
+        await createWorkoutPlan(parsedResponse[0]);
+
+        
 
         return parsedResponse;
     } catch (error) {
