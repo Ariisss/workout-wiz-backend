@@ -35,6 +35,10 @@ const PlanExercise = sequelize.define('PlanExercise', {
     reps: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    met_value: {
+        type: DataTypes.FLOAT,
+        allowNull: false
     }
 }, {
     tableName: 'plan_exercises',
