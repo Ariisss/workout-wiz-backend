@@ -20,11 +20,6 @@ const AIGenerationLog = sequelize.define('AIGenerationLog', {
         type: DataTypes.JSON,
         allowNull: false
     },
-    generation_datetime: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
     status: {
         type: DataTypes.STRING,
         allowNull: false,
