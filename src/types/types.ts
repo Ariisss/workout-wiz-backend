@@ -63,6 +63,7 @@ export interface PlanExerciseType {
   description: string;
   sets: number;
   reps: number;
+  duration_mins: number;
   workout_day: string;
   met_value: number;
 }
