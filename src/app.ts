@@ -27,7 +27,7 @@ async function startServer(): Promise<void> {
         // console.log("www")
 
         // comment out nsd ni if wala natay changes
-        // await sequelize.sync();
+        // await sequelize.sync({ force: true});
         
         app.listen(env.PORT, () => {
             console.log(`Server is running on port ${env.PORT}`);
