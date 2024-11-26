@@ -1,9 +1,9 @@
 import genAI from '../config/ai.config';
-import { WorkoutPreferenceType } from '../types/types';
+import { WorkoutPreferenceType, PlanExerciseType } from '../types/types';
 import { AIGenerationLog } from '../models';
 import { createAILog } from './ai-log.service';
 import { createWorkoutPlan } from './workout-plan.service';
-import { createPlanExercise } from './plan-exercise.service';
+import { createPlanExerciseBulk } from './plan-exercise.service';
 
 export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
     const prompt = `Create a personalized workout plan with these requirements:
@@ -112,19 +112,19 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
 
         const planExercises = parsedResponse[0].Exercises;
 
-        for (const exercise of planExercises) {
-            const planExercise = {
-                plan_id: retrievedWorkoutPlan.plan_id,
-                exercise_name: exercise["Exercise Name"],
-                description: exercise.Description,
-                sets: exercise.Sets,
-                reps: exercise.Reps,
-                duration_mins: exercise["Duration (mins)"],
-                workout_day: exercise["Workout Day"],
-                met_value: exercise["MET Value"]
-            };
-            await createPlanExercise(planExercise);
-        }
+        const exercisesToCreate = planExercises.map((exercise: any) => ({
+            plan_id: retrievedWorkoutPlan.plan_id,
+            exercise_name: exercise["Exercise Name"],
+            description: exercise.Description,
+            sets: exercise.Sets,
+            reps: exercise.Reps,
+            duration_mins: exercise["Duration (mins)"],
+            workout_day: exercise["Workout Day"],
+            met_value: exercise["MET Value"]
+        }));
+
+        await createPlanExerciseBulk(exercisesToCreate);
+
 
         return parsedResponse;
     } catch (error) {
