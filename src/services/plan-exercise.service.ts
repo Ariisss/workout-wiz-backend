@@ -21,3 +21,7 @@ export const deletePlanExercise = async (plan_exercise_id: number) => {
     return await PlanExercise.destroy({ where: { plan_exercise_id } });
 }
 
+export async function createPlanExerciseBulk(planExercises: Array<Omit<PlanExerciseType, 'plan_exercise_id'>>) {
+    return await PlanExercise.bulkCreate(planExercises);
+}
+
