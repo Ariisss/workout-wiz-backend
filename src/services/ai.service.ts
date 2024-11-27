@@ -35,7 +35,7 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
                 "Exercises": [
                     {
                         "exercise_name": "Name of exercise",
-                        "description": "Clear, concise instructions",
+                        "description": "Clear, elaborate instructions. Provide a detailed instruction as to how to perform the exercise",
                         "sets": Strictly integer,
                         "reps": Strictly integer,
                         "duration_mins": Strictly float,
