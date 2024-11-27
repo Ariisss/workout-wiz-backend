@@ -56,6 +56,17 @@ export interface WorkoutPlanType {
   intensity: IntensityLevel;
 }
 
+export interface PlanExerciseResponseType {
+  plan_id: number;
+  exercise_name: string;
+  description: string;
+  sets: number;
+  reps: number;
+  duration_mins: number;
+  workout_day: string;
+  met_value: number;
+}
+
 export interface PlanExerciseType {
   plan_exercise_id: number;
   plan_id: number;
