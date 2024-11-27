@@ -1,5 +1,5 @@
 import genAI from '../config/ai.config';
-import { WorkoutPreferenceType, PlanExerciseType } from '../types/types';
+import { WorkoutPreferenceType, PlanExerciseResponseType } from '../types/types';
 import { AIGenerationLog } from '../models';
 import { createAILog } from './ai-log.service';
 import { createWorkoutPlan } from './workout-plan.service';
@@ -34,13 +34,13 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
                 "Workout_Days": "${preferences.workout_days}",
                 "Exercises": [
                     {
-                        "Exercise Name": "Name of exercise",
-                        "Description": "Clear, concise instructions",
-                        "Sets": Strictly integer,
-                        "Reps": Strictly integer,
-                        "Duration (mins)": Strictly float,
-                        "Workout Day": "Monday",
-                        "MET Value": Strictly float
+                        "exercise_name": "Name of exercise",
+                        "description": "Clear, concise instructions",
+                        "sets": Strictly integer,
+                        "reps": Strictly integer,
+                        "duration_mins": Strictly float,
+                        "workout_day": "Monday",
+                        "met_value": Strictly float
                     }
                     // Repeat for exactly 7 exercises per workout day
                 ]
@@ -112,19 +112,18 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
 
         const planExercises = parsedResponse[0].Exercises;
 
-        const exercisesToCreate = planExercises.map((exercise: any) => ({
+        const exercisesToCreate = planExercises.map((exercise: PlanExerciseResponseType) => ({
             plan_id: retrievedWorkoutPlan.plan_id,
-            exercise_name: exercise["Exercise Name"],
-            description: exercise.Description,
-            sets: exercise.Sets,
-            reps: exercise.Reps,
-            duration_mins: exercise["Duration (mins)"],
-            workout_day: exercise["Workout Day"],
-            met_value: exercise["MET Value"]
+            exercise_name: exercise.exercise_name,
+            description: exercise.description,
+            sets: exercise.sets,
+            reps: exercise.reps,
+            duration_mins: exercise.duration_mins,
+            workout_day: exercise.workout_day,
+            met_value: exercise.met_value
         }));
 
         await createPlanExerciseBulk(exercisesToCreate);
-
 
         return parsedResponse;
     } catch (error) {
