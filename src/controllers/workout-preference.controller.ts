@@ -15,7 +15,6 @@ export const createWorkoutPreference = async (req: Request, res: Response) => {
             user_id: req.user.id
         };
 
-        // Create the preference
         const newWorkoutPreference = await create(workoutPreference);
         if (!newWorkoutPreference) {
             res.status(400).json({ error: 'Failed to create workout preference' });
@@ -23,7 +22,6 @@ export const createWorkoutPreference = async (req: Request, res: Response) => {
         }
 
         try {
-            // Generate workout plans
             const workoutPlans = await generateWorkoutPlans(newWorkoutPreference.get());
             
             res.status(201).json({
@@ -36,7 +34,6 @@ export const createWorkoutPreference = async (req: Request, res: Response) => {
             return;
         } catch (aiError) {
             console.error('AI Generation Error:', aiError);
-            // Even if AI generation fails, we still created the preference
             res.status(201).json({
                 success: true,
                 data: {
@@ -55,3 +52,28 @@ export const createWorkoutPreference = async (req: Request, res: Response) => {
         return;
     }
 };
+
+export const getWorkoutPreferences = async (req: Request, res: Response) => {
+
+    try{
+        if (!req.user?.id) {
+            res.status(401).json({ error: 'User not authenticated' });
+            return
+        }
+
+        const workoutPreferences = await get(req.user.id);
+
+        res.status(200).json({
+            success: true,
+            data: workoutPreferences
+        });
+        return;
+    } catch (error) {
+        console.error('Preference Retrieval Error:', error);
+        res.status(500).json({ 
+            error: 'Failed to retrieve workout preferences',
+            details: error instanceof Error ? error.message : 'Unknown error'
+        });
+        return;
+    }
+}
