@@ -79,3 +79,12 @@ export interface PlanExerciseType {
   met_value: number;
 }
 
+export interface ExerciseLogType {
+  log_id: number;
+  user_id: number;
+  plan_exercise_id: number;
+  date: Date;
+  duration_mins: number;
+  calories_burned: number;
+}
+
