@@ -98,4 +98,17 @@ export const removeUser = async (req: Request, res: Response) => {
     }
 }
 
+export const getUserProfile = async (req: Request, res: Response) => {
+    try{
+        if (!req.user?.id) {
+            res.status(401).json({ error: 'User not authenticated' });
+            return
+        }
+
+        const user = await getUser(req.user.id);
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
 
