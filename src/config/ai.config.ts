@@ -68,13 +68,13 @@ export const workoutPlanSchema = {
                             description: "Day of the week to perform the workout",
                             nullable: false,
                         },
-                        "Met Value": {
+                        "met_value": {
                             type: SchemaType.NUMBER,
                             description: "Met value of the exercise",
                             nullable: false,
                         }
                     }
-                },
+                }, 
             }
     }
 }
