@@ -1,16 +1,6 @@
 import { Request, Response } from "express";
 import { update, changePassword, deleteUser, updateHealthMetrics, getUser } from "../services/user.service";
 
-export const retrieveUser = async (req: Request, res: Response) => {
-    const parsedUserId = parseInt(req.params.userId);
-    const user = await getUser(parsedUserId);
-    if(!user){
-        res.status(404).json({ error: 'User not found' });
-        return
-    }
-    res.status(200).json(user);
-}
-
 export const updateUser = async (req: Request, res: Response) => {
     try {
         const parsedUserId = parseInt(req.params.userId);
@@ -67,11 +57,6 @@ export const removeUser = async (req: Request, res: Response) => {
     try{
         const { userId } = req.params;
 
-        if (!userId) {
-            res.status(400).json({ error: 'id is required' });
-            return
-        }
-
         const parsedUserId = parseInt(userId);
         if (isNaN(parsedUserId)) {
             res.status(400).json({ error: 'invalid id format' });
@@ -100,11 +85,6 @@ export const removeUser = async (req: Request, res: Response) => {
 
 export const getUserProfile = async (req: Request, res: Response) => {
     try{
-        if (!req.user?.id) {
-            res.status(401).json({ error: 'User not authenticated' });
-            return
-        }
-
         const user = await getUser(req.user.id);
         res.status(200).json(user);
     } catch (error) {
