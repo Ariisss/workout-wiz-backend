@@ -73,7 +73,7 @@ export const getWorkoutPreferences = async (req: Request, res: Response) => {
 export const deleteWorkoutPreference = async (req: Request, res: Response) => {
  
     try {
-        await remove(req.body.preferenceId);
+        await remove(parseInt(req.params.id));
         res.status(200).json({
             success: true,
             message: 'Workout preference deleted successfully'
@@ -98,7 +98,7 @@ export const updateWorkoutPreference = async (req: Request, res: Response) => {
             user_id: req.user.id
         }
 
-        const updatedWorkoutPreference = await update(newWorkoutPreference, req.body.preferenceId);
+        const updatedWorkoutPreference = await update(newWorkoutPreference, parseInt(req.params.id));
 
         res.status(200).json({
             success: true,

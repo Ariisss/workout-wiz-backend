@@ -6,7 +6,7 @@ const router = Router();
 
 router.post('/', authMiddleware, createWorkoutPreference);
 router.get('/', authMiddleware, getWorkoutPreferences);
-router.delete('/', authMiddleware, deleteWorkoutPreference);
-router.put('/', authMiddleware, updateWorkoutPreference);
+router.delete('/:id', authMiddleware, deleteWorkoutPreference);
+router.put('/:id', authMiddleware, updateWorkoutPreference);
 
 export default router;
