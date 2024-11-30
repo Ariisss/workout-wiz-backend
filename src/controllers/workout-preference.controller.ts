@@ -5,10 +5,6 @@ import { generateWorkoutPlans } from "../services/ai.service";
 
 export const createWorkoutPreference = async (req: Request, res: Response) => {
     try {
-        if (!req.user?.id) {
-            res.status(401).json({ error: 'User not authenticated' });
-            return
-        }
 
         const workoutPreference: WorkoutPreferenceType = {
             ...req.body,
@@ -56,10 +52,6 @@ export const createWorkoutPreference = async (req: Request, res: Response) => {
 export const getWorkoutPreferences = async (req: Request, res: Response) => {
 
     try{
-        if (!req.user?.id) {
-            res.status(401).json({ error: 'User not authenticated' });
-            return
-        }
 
         const workoutPreferences = await get(req.user.id);
 
