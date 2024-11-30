@@ -16,6 +16,7 @@ app.use('/auth', authRoutes)
 app.use('/user', userRoutes)
 app.use('/work-preference', workoutPreferenceRoutes)
 
+
 // database init and server start
 async function startServer(): Promise<void> {
     try {

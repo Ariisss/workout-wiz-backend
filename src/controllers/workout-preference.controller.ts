@@ -88,3 +88,29 @@ export const deleteWorkoutPreference = async (req: Request, res: Response) => {
         return;
     }
 }
+
+export const updateWorkoutPreference = async (req: Request, res: Response) => {
+    try{
+        // const updatedWorkoutPreference = await update(req.body, req.body.preferenceId);
+
+        const newWorkoutPreference: WorkoutPreferenceType = {
+            ...req.body,
+            user_id: req.user.id
+        }
+
+        const updatedWorkoutPreference = await update(newWorkoutPreference, req.body.preferenceId);
+
+        res.status(200).json({
+            success: true,
+            data: updatedWorkoutPreference
+        });
+        return;
+    } catch (error) {
+        console.error('Preference Update Error:', error);
+        res.status(500).json({ 
+            error: 'Failed to update workout preference',
+            details: error instanceof Error ? error.message : 'Unknown error'
+        });
+        return;
+    }
+}
