@@ -69,3 +69,22 @@ export const getWorkoutPreferences = async (req: Request, res: Response) => {
         return;
     }
 }
+
+export const deleteWorkoutPreference = async (req: Request, res: Response) => {
+ 
+    try {
+        await remove(req.body.preferenceId);
+        res.status(200).json({
+            success: true,
+            message: 'Workout preference deleted successfully'
+        });
+        return;
+    } catch (error) {
+        console.error('Preference Deletion Error:', error);
+        res.status(500).json({ 
+            error: 'Failed to delete workout preference',
+            details: error instanceof Error ? error.message : 'Unknown error'
+        });
+        return;
+    }
+}
