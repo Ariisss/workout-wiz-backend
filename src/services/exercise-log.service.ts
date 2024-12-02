@@ -2,8 +2,8 @@ import { ExerciseLog } from "../models";
 import { ExerciseLogType } from "../types/types";
 import { getPlanExerciseById } from "./exercises.service";
 
-export const createExerciseLog = async (exerciseLog: Omit<ExerciseLogType, 'exercise_log_id'>) => {
-    return await ExerciseLog.create(exerciseLog);
+export const createExerciseLog = async (exerciseLog: Omit<ExerciseLogType, 'exercise_log_id'>, caloriesBurned: number) => {
+    return await ExerciseLog.create({ ...exerciseLog, calories_burned: caloriesBurned });
 }
 
 export const getExerciseLogs = async (user_id: number) => {
