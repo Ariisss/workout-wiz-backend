@@ -1,5 +1,5 @@
 import { WorkoutPlan } from "../models";
-import { WorkoutPlanType } from "../types/types";
+import { WorkoutPlanType, PlanIdType } from "../types/types";
 
 export const createPlan = async (workoutPlan: Omit<WorkoutPlanType, 'plan_id'>) => {
     return await WorkoutPlan.create(workoutPlan);
@@ -19,4 +19,8 @@ export const getPlanById = async (plan_id: number) => {
 
 export const deletePlan = async (plan_id: number) => {
     return await WorkoutPlan.destroy({ where: { plan_id } });
+}
+
+export const getPlanId = async (user_id: number): Promise<PlanIdType | null> => {
+    return await WorkoutPlan.findOne({ where: { user_id } }).then((plan) => plan?.get());
 }

@@ -90,3 +90,6 @@ export interface ExerciseLogType {
   calories_burned: number;
 }
 
+export interface PlanIdType {
+  plan_id: number;
+}
