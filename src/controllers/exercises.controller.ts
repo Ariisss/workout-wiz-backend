@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { deletePlanExercise, getPlanExerciseById, getPlanExercises } from "../services/exercises";
+import { deletePlanExercise, getPlanExerciseById, getPlanExercises } from "../services/exercises.service";
 
 export const getExercises = async (req: Request, res: Response) => {
     try {
