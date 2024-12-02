@@ -2,7 +2,7 @@ import genAI from '../config/ai.config';
 import { WorkoutPreferenceType, PlanExerciseResponseType } from '../types/types';
 import { AIGenerationLog } from '../models';
 import { createAILog } from './ai-log.service';
-import { createWorkoutPlan } from './workout-plan.service';
+import { createPlan } from './workout-plan.service';
 import { createPlanExerciseBulk } from './plan-exercise.service';
 
 export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
@@ -106,7 +106,7 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
             intensity: parsedResponse[0].Intensity
         };
 
-        const createdWorkoutPlan = await createWorkoutPlan(workoutPlan);
+        const createdWorkoutPlan = await createPlan(workoutPlan);
         const retrievedWorkoutPlan = createdWorkoutPlan.get()
 
 
