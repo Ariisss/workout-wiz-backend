@@ -5,8 +5,8 @@ export const createPlanExercise = async (planExercise: Omit<PlanExerciseType, 'p
     return await PlanExercise.create(planExercise);
 }
 
-export const getPlanExercises = async (plan_id: number) => {
-    return await PlanExercise.findAll({ where: { plan_id } });
+export const getPlanExercises = async (user_id: number) => {
+    return await PlanExercise.findAll({ where: { user_id } });
 }
 
 export const getPlanExerciseById = async (plan_exercise_id: number) => {
