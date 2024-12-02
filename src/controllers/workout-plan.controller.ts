@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import { WorkoutPlan } from "../models";
-import { createPlan, getPlanById, deletePlan } from "../services/workout-plan.service";
+import { getPlanById, deletePlan } from "../services/workout-plan.service";
 import { generateWorkoutPlans } from "../services/ai.service";
 
 export const generateFromPreferences = async (req: Request, res: Response) => {
