@@ -9,12 +9,12 @@ export const getPreference = async (userId: number) => {
     return await Preferences.findAll({ where: { user_id: userId } });
 }
 
-export const updatePreferences = async (workoutPreference: WorkoutPreferenceType, preferenceId: number) => {
-    return await Preferences.update(workoutPreference, { where: { preference_id: preferenceId } });
+export const updatePreferences = async (workoutPreference: WorkoutPreferenceType, userId: number) => {
+    return await Preferences.update(workoutPreference, { where: { user_id: userId } });
 }
 
-export const removePreferences = async (preferenceId: number) => {
-    return await Preferences.destroy({ where: { preference_id: preferenceId } });
+export const removePreferences = async (userId: number) => {
+    return await Preferences.destroy({ where: { user_id: userId } });
 }
 
 

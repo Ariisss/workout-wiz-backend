@@ -95,10 +95,10 @@ export const updateWorkoutPreference = async (req: Request, res: Response) => {
 
         const newWorkoutPreference: WorkoutPreferenceType = {
             ...req.body,
-            user_id: req.user.id
+            user_id: req.user.id,
         }
 
-        const updatedWorkoutPreference = await updatePreferences(newWorkoutPreference, parseInt(req.params.id));
+        const updatedWorkoutPreference = await updatePreferences(newWorkoutPreference, req.user.id);
 
         res.status(200).json({
             success: true,
