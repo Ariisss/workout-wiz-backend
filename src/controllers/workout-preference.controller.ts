@@ -98,11 +98,12 @@ export const updateWorkoutPreference = async (req: Request, res: Response) => {
             user_id: req.user.id,
         }
 
-        const updatedWorkoutPreference = await updatePreferences(newWorkoutPreference, req.user.id);
+        await updatePreferences(newWorkoutPreference, req.user.id);
+        const retrievedWorkoutPreference = await getPreference(req.user.id);
 
         res.status(200).json({
             success: true,
-            data: updatedWorkoutPreference
+            data: retrievedWorkoutPreference
         });
         return;
     } catch (error) {
