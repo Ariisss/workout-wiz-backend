@@ -3,7 +3,7 @@ import Preferences from './workout-preference.model';
 import AIGenerationLog from './ai-log.model';
 import ExerciseLog from './exercise-log.model';
 import WorkoutPlan from './workout-plan.model';
-import PlanExercise from './plan-exercise.model';
+import PlanExercise from './exercises.model';
 
 function setupAssociations(): void {
 
