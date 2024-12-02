@@ -1,5 +1,6 @@
 import { ExerciseLog } from "../models";
 import { ExerciseLogType } from "../types/types";
+import { getPlanExerciseById } from "./exercises.service";
 
 export const createExerciseLog = async (exerciseLog: Omit<ExerciseLogType, 'exercise_log_id'>) => {
     return await ExerciseLog.create(exerciseLog);
@@ -19,4 +20,21 @@ export const updateExerciseLog = async (log_id: number, exerciseLog: Omit<Exerci
 
 export const deleteExerciseLog = async (log_id: number) => {
     return await ExerciseLog.destroy({ where: { log_id } });
+}
+
+export const computeCaloriesBurned = async (
+    duration_mins: number, 
+    plan_exercise_id: number,
+    weight_kg: number
+) => {
+    const exercise = await getPlanExerciseById(plan_exercise_id);
+    if (!exercise) {
+        throw new Error('Exercise not found');
+    }
+
+    const met = exercise.get('met_value') as number;
+    
+    const calories = (met * weight_kg * 3.5 * duration_mins) / 200;
+    
+    return Math.round(calories);
 }
