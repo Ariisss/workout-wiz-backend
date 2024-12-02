@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { create, get, update, remove } from "../services/workout-preference.service";
+import { createPreference, getPreference, updatePreferences, removePreferences } from "../services/workout-preference.service";
 import { WorkoutPreferenceType } from "../types/types";
 import { generateWorkoutPlans } from "../services/ai.service";
 
@@ -11,7 +11,7 @@ export const createWorkoutPreference = async (req: Request, res: Response) => {
             user_id: req.user.id
         };
 
-        const newWorkoutPreference = await create(workoutPreference);
+        const newWorkoutPreference = await createPreference(workoutPreference);
         if (!newWorkoutPreference) {
             res.status(400).json({ error: 'Failed to create workout preference' });
             return;
@@ -53,7 +53,7 @@ export const getWorkoutPreferences = async (req: Request, res: Response) => {
 
     try{
 
-        const workoutPreferences = await get(req.user.id);
+        const workoutPreferences = await getPreference(req.user.id);
 
         res.status(200).json({
             success: true,
@@ -73,7 +73,7 @@ export const getWorkoutPreferences = async (req: Request, res: Response) => {
 export const deleteWorkoutPreference = async (req: Request, res: Response) => {
  
     try {
-        await remove(parseInt(req.params.id));
+        await removePreferences(parseInt(req.params.id));
         res.status(200).json({
             success: true,
             message: 'Workout preference deleted successfully'
@@ -98,7 +98,7 @@ export const updateWorkoutPreference = async (req: Request, res: Response) => {
             user_id: req.user.id
         }
 
-        const updatedWorkoutPreference = await update(newWorkoutPreference, parseInt(req.params.id));
+        const updatedWorkoutPreference = await updatePreferences(newWorkoutPreference, parseInt(req.params.id));
 
         res.status(200).json({
             success: true,
