@@ -45,6 +45,8 @@ export interface WorkoutPreferenceType {
   intensity: IntensityLevel;
 }   
 
+export interface CreateWorkoutPreferenceType extends Omit<WorkoutPreferenceType, 'preference_id'> {}
+
 export interface WorkoutPlanType {
   plan_id: number;
   user_id: number;
