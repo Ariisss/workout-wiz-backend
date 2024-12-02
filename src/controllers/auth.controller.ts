@@ -33,3 +33,15 @@ export const loginController = async (req: Request, res: Response) => {
         });
     }
 }
+
+export const logoutController = async (req: Request, res: Response) => {
+    try {
+        res.status(200).json({ success: true, message: 'Logout successful' });
+    } catch (error) {
+        console.error('Logout Error:', error);
+        res.status(500).json({
+            error: 'Failed to logout',
+            details: error instanceof Error ? error.message : 'Unknown error'
+        });
+    }
+}
