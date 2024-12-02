@@ -17,28 +17,28 @@ export const createWorkoutPreference = async (req: Request, res: Response) => {
             return;
         }
 
-        // try {
-        //     const workoutPlans = await generateWorkoutPlans(newWorkoutPreference.get());
+        try {
+            const workoutPlans = await generateWorkoutPlans(newWorkoutPreference.get());
             
-        //     res.status(201).json({
-        //         success: true,
-        //         data: {
-        //             preference: newWorkoutPreference,
-        //             plans: workoutPlans
-        //         }
-        //     });
-        //     return;
-        // } catch (aiError) {
-        //     console.error('AI Generation Error:', aiError);
-        //     res.status(201).json({
-        //         success: true,
-        //         data: {
-        //             preference: newWorkoutPreference
-        //         },
-        //         warning: 'Workout plans could not be generated at this time'
-        //     });
-        //     return
-        // }
+            res.status(201).json({
+                success: true,
+                data: {
+                    preference: newWorkoutPreference,
+                    plans: workoutPlans
+                }
+            });
+            return;
+        } catch (aiError) {
+            console.error('AI Generation Error:', aiError);
+            res.status(201).json({
+                success: true,
+                data: {
+                    preference: newWorkoutPreference
+                },
+                warning: 'Workout plans could not be generated at this time'
+            });
+            return
+        }
     } catch (error) {
         console.error('Preference Creation Error:', error);
         res.status(500).json({ 
@@ -73,7 +73,7 @@ export const getWorkoutPreferences = async (req: Request, res: Response) => {
 export const deleteWorkoutPreference = async (req: Request, res: Response) => {
  
     try {
-        await removePreferences(parseInt(req.params.id));
+        await removePreferences(req.user.id);
         res.status(200).json({
             success: true,
             message: 'Workout preference deleted successfully'
