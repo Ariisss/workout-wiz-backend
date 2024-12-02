@@ -3,7 +3,7 @@ import { WorkoutPreferenceType, PlanExerciseResponseType } from '../types/types'
 import { AIGenerationLog } from '../models';
 import { createAILog } from './ai-log.service';
 import { createPlan } from './workout-plan.service';
-import { createPlanExerciseBulk } from './plan-exercise.service';
+import { createPlanExerciseBulk } from './exercises';
 
 export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
     const prompt = `Create a personalized workout plan with these requirements:
