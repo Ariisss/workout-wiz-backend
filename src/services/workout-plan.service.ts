@@ -1,4 +1,4 @@
-import { WorkoutPlan } from "../models";
+import { PlanExercise, WorkoutPlan } from "../models";
 import { WorkoutPlanType, PlanIdType } from "../types/types";
 
 export const createPlan = async (workoutPlan: Omit<WorkoutPlanType, 'plan_id'>) => {
@@ -18,6 +18,7 @@ export const getPlanById = async (plan_id: number) => {
 // }
 
 export const deletePlan = async (plan_id: number) => {
+    await PlanExercise.destroy({ where: { plan_id } });
     return await WorkoutPlan.destroy({ where: { plan_id } });
 }
 
