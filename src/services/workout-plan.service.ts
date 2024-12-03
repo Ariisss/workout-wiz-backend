@@ -5,10 +5,6 @@ export const createPlan = async (workoutPlan: Omit<WorkoutPlanType, 'plan_id'>) 
     return await WorkoutPlan.create(workoutPlan);
 }
 
-export const getPlans = async (user_id: number) => {
-    return await WorkoutPlan.findAll({ where: { user_id } });
-}
-
 export const getPlanById = async (plan_id: number) => {
     return await WorkoutPlan.findByPk(plan_id);
 }
@@ -24,4 +20,8 @@ export const deletePlan = async (plan_id: number) => {
 
 export const getPlanId = async (user_id: number): Promise<PlanIdType | null> => {
     return await WorkoutPlan.findOne({ where: { user_id } }).then((plan) => plan?.get());
+}
+
+export const getAllPlans = async (user_id: number) => {
+    return await WorkoutPlan.findAll({ where: { user_id } });
 }

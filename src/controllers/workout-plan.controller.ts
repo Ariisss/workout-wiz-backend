@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getPlanById, deletePlan } from "../services/workout-plan.service";
+import { getPlanById, deletePlan, getAllPlans } from "../services/workout-plan.service";
 import { generateWorkoutPlans } from "../services/ai.service";
 
 export const generateFromPreferences = async (req: Request, res: Response) => {
@@ -62,4 +62,12 @@ export const deleteWorkoutPlan = async (req: Request, res: Response) => {
             details: error instanceof Error ? error.message : 'Unknown error'
         });
     }
+}
+
+export const getWorkoutPlanExercises = async (req: Request, res: Response) => {
+    const exercises = await getAllPlans(parseInt(req.params.id));
+    res.status(200).json({
+        success: true,
+        data: exercises
+    });
 }
