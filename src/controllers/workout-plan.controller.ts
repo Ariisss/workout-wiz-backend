@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getPlanById, deletePlan, getAllPlans } from "../services/workout-plan.service";
+import { getPlanById, deletePlan, getAllPlans, getPlansAndExercises } from "../services/workout-plan.service";
 import { generateWorkoutPlans } from "../services/ai.service";
 
 export const generateFromPreferences = async (req: Request, res: Response) => {
@@ -66,7 +66,7 @@ export const deleteWorkoutPlan = async (req: Request, res: Response) => {
 
 export const getWorkoutPlanExercises = async (req: Request, res: Response) => {
     try{
-        const exercises = await getAllPlans(req.user.id);
+        const exercises = await getPlansAndExercises(req.user.id);
         res.status(200).json({
             success: true,
             data: exercises

@@ -25,3 +25,7 @@ export const getPlanId = async (user_id: number): Promise<PlanIdType | null> => 
 export const getAllPlans = async (user_id: number) => {
     return await WorkoutPlan.findAll({ where: { user_id } });
 }
+
+export const getPlansAndExercises = async (user_id: number) => {
+    return await WorkoutPlan.findAll({ where: { user_id }, include: [{ model: PlanExercise, as: 'planExercises' }] });
+}
