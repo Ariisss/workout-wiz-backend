@@ -65,9 +65,17 @@ export const deleteWorkoutPlan = async (req: Request, res: Response) => {
 }
 
 export const getWorkoutPlanExercises = async (req: Request, res: Response) => {
-    const exercises = await getAllPlans(parseInt(req.params.id));
-    res.status(200).json({
-        success: true,
-        data: exercises
-    });
+    try{
+        const exercises = await getAllPlans(req.user.id);
+        res.status(200).json({
+            success: true,
+            data: exercises
+        });
+    } catch (error) {
+        console.error('Workout Plan Exercises Retrieval Error:', error);
+        res.status(500).json({
+            error: 'Failed to retrieve workout plan exercises',
+            details: error instanceof Error ? error.message : 'Unknown error'
+        }); 
+    }
 }
