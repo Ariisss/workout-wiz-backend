@@ -8,6 +8,7 @@ import userRoutes from './routes/user.routes';
 import workoutPreferenceRoutes from './routes/workout-preference.routes';
 import exercisesRoutes from './routes/exercises.routes';
 import exerciseLogRoutes from './routes/exercise-log.routes';
+import workoutPlanRoutes from './routes/workout-plan.routes';
 
 const app: Express = express();
 
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/auth', authRoutes)
 app.use('/user', userRoutes)
 app.use('/work-preference', workoutPreferenceRoutes)
+app.use('/workout-plan', workoutPlanRoutes)
 app.use('/exercises', exercisesRoutes)
 app.use('/exercise-logs', exerciseLogRoutes)
 // database init and server start
