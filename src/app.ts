@@ -7,6 +7,8 @@ import authRoutes from './routes/auth.routes'
 import userRoutes from './routes/user.routes';
 import workoutPreferenceRoutes from './routes/workout-preference.routes';
 import exercisesRoutes from './routes/exercises.routes';
+import exerciseLogRoutes from './routes/exercise-log.routes';
+
 const app: Express = express();
 
 app.use(express.json());
@@ -17,7 +19,7 @@ app.use('/auth', authRoutes)
 app.use('/user', userRoutes)
 app.use('/work-preference', workoutPreferenceRoutes)
 app.use('/exercises', exercisesRoutes)
-
+app.use('/exercise-logs', exerciseLogRoutes)
 // database init and server start
 async function startServer(): Promise<void> {
     try {
