@@ -72,6 +72,11 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
 
         const text = result.response.text();
 
+        const isValid = validateResponse(text);
+        if (!isValid) {
+            throw new Error('Generated content violates rules');
+        }
+
         console.log("Raw text: ", text);
         
         // More robust JSON cleaning
@@ -135,4 +140,8 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
         });
         throw error;
     }
+}
+
+function validateResponse(text: string): boolean {
+    return !text.includes('prohibited content');
 }

@@ -15,7 +15,7 @@ export const generateFromPreferences = async (req: Request, res: Response) => {
             });
             return;
         }
-
+ 
         console.log("Preferences: ", preferences);
 
         const [currentPreference] = preferences;
