@@ -22,6 +22,15 @@ export const getPlanId = async (user_id: number): Promise<PlanIdType | null> => 
     return await WorkoutPlan.findOne({ where: { user_id } }).then((plan) => plan?.get());
 }
 
+export const getAllPlanIds = async (user_id: number) => {
+    const plans = await WorkoutPlan.findAll({
+        where: { user_id },
+        attributes: ['plan_id']
+    });
+
+    return plans.map(plan => plan.get('plan_id'));
+}
+
 export const getAllPlans = async (user_id: number) => {
     return await WorkoutPlan.findAll({ where: { user_id } });
 }
