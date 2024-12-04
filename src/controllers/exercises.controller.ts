@@ -1,15 +1,11 @@
 import { Request, Response } from "express";
-import { deletePlanExercise, getPlanExerciseById, getPlanExercises } from "../services/exercises.service";
-import { getPlanId } from "../services/workout-plan.service";
+import { deletePlanExercise, getAllUserExercises, getPlanExerciseById } from "../services/exercises.service";
+import { getAllPlanIds } from "../services/workout-plan.service";
+import { PlanExerciseType } from "../types/types";
 
 export const getExercises = async (req: Request, res: Response) => {
     try {
-        const planId = await getPlanId(req.user.id);
-        if (!planId) {
-            res.status(404).json({ error: 'No workout plan found for this user' });
-            return;
-        }
-        const exercises = await getPlanExercises(planId.plan_id);
+        const exercises = await getAllUserExercises(req.user.id);
         res.status(200).json({ success: true, data: exercises });
     } catch (error) {
         console.error('Error fetching exercises:', error);
