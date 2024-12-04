@@ -1,10 +1,22 @@
 import { Request, Response } from "express";
 import { computeCaloriesBurned, createLog, deleteLog, getLogById, getLogs } from "../services/exercise-log.service";
+import { getUser } from "../services/user.service";
+import { UserType } from "../types/types";
 
 export const logExercise = async (req: Request, res: Response) => {
     try{
-        const { duration_mins, plan_exercise_id, weight_kg } = req.body;
-        const caloriesBurned = await computeCaloriesBurned(duration_mins, plan_exercise_id, weight_kg);
+
+        const userModel = await getUser(req.user.id);
+
+        if (!userModel) {
+            res.status(404).json({ error: 'User not found' });
+            return;
+        }
+
+        const user = userModel.get() as UserType;
+
+        const { duration_mins, plan_exercise_id } = req.body;
+        const caloriesBurned = await computeCaloriesBurned(duration_mins, plan_exercise_id, user.weight);
         const exerciseLog = await createLog(req.body, caloriesBurned);
         res.status(201).json({ success: true, data: exerciseLog });
     } catch (error) {
