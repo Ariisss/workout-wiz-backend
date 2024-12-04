@@ -59,11 +59,11 @@ function setupAssociations(): void {
 
     // exercises n exercise logs
     PlanExercise.hasMany(ExerciseLog, {
-        foreignKey: 'exercise_id',
+        foreignKey: 'plan_exercise_id',
         as: 'exerciseLogs'
     });
     ExerciseLog.belongsTo(PlanExercise, {
-        foreignKey: 'exercise_id',
+        foreignKey: 'plan_exercise_id',
         as: 'exercise'
     });
 }
