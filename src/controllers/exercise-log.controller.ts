@@ -25,7 +25,7 @@ export const logExercise = async (req: Request, res: Response) => {
             date: new Date()
         }
 
-        const exerciseLog = await createLog(req.body);
+        const exerciseLog = await createLog(exerciseLogData);
         res.status(201).json({ success: true, data: exerciseLog });
 
     } catch (error) {
