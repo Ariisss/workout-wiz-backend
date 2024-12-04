@@ -17,8 +17,17 @@ export const logExercise = async (req: Request, res: Response) => {
 
         const { duration_mins, plan_exercise_id } = req.body;
         const caloriesBurned = await computeCaloriesBurned(duration_mins, plan_exercise_id, user.weight);
-        const exerciseLog = await createLog(req.body, caloriesBurned);
+
+        const exerciseLogData = {
+            ...req.body,
+            user_id: user.user_id,
+            calories_burned: caloriesBurned,
+            date: new Date()
+        }
+
+        const exerciseLog = await createLog(req.body);
         res.status(201).json({ success: true, data: exerciseLog });
+
     } catch (error) {
         console.error('Error logging exercise:', error);
         res.status(500).json({ error: 'Failed to log exercise' });
