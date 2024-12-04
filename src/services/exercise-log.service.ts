@@ -36,5 +36,5 @@ export const computeCaloriesBurned = async (
     
     const calories = (met * weight_kg * 3.5 * duration_mins) / 200;
     
-    return Math.round(calories);
+    return calories;
 }
