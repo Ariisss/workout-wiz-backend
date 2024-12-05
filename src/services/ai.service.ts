@@ -15,9 +15,11 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
         ).filter(Boolean).join(', ')}
 
         Important guidelines:
-        - Include exactly 7 exercises for each workout day
+        - Include exactly 5 exercises for each workout day
+        - Strictly provide workouts for the days specified in the schedule
         - Each exercise should have sets, reps, and clear instructions
         - Focus on exercises that match the experience level
+        - Do not use AMRAP, EMOM, or any other acronyms, just numbers for reps, sets, duration_mins and met value
         - Ensure exercises align with the available equipment
         - Strictly use double quotes for all property names and values
         - No code blocks, no newlines, no extra spaces, no extra commas, no extra quotes
@@ -36,25 +38,25 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
                     {
                         "exercise_name": "Name of exercise",
                         "description": "Clear, elaborate instructions. Provide a detailed instruction as to how to perform the exercise",
-                        "sets": Strictly integer,
-                        "reps": Strictly integer,
-                        "duration_mins": Strictly float,
+                        "sets": Strictly integer, no other characters,
+                        "reps": Strictly integer, no other characters,
+                        "duration_mins": Strictly float, no other characters,
                         "workout_day": "Monday",
-                        "met_value": Strictly float
+                        "met_value": Strictly float, no other characters
                     }
-                    // Repeat for exactly 7 exercises per workout day
+                    // Repeat for exactly 5 exercises per workout day
                 ]
             }
         ]
         
-        Note: The response must be a valid JSON array containing exactly one plan object. Each active workout day must have exactly 7 exercises.`;
+        Note: The response must be a valid JSON array containing exactly one plan object. Each active workout day must have exactly 5 exercises.`;
 
     try {
         const model = genAI.getGenerativeModel({
             model: "gemini-1.5-pro",
             generationConfig: {
                 temperature: 0.7,
-                maxOutputTokens: 10000,
+                maxOutputTokens: 20000,
                 topK: 40,
                 topP: 0.8,
                 candidateCount: 1
@@ -78,6 +80,8 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
         }
 
         console.log("Raw text: ", text);
+
+        // console.log("json text: ", JSON.parse(text));
         
         // More robust JSON cleaning
         const jsonStart = text.indexOf('[');
@@ -94,6 +98,8 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
             .trim();
 
         const parsedResponse = JSON.parse(cleanedText);
+
+        console.log("parsedResponse: ", JSON.stringify(parsedResponse));
 
         if (!Array.isArray(parsedResponse)) {
             throw new Error('Response is not an array');
