@@ -1,5 +1,5 @@
 import { comparePasswords, hashPassword, validatePassword } from "../utils/password.utils";
-import { generateToken, verifyToken } from "../utils/jwt.utils";
+import { generateToken } from "../utils/jwt.utils";
 import { UserType, UserRegisterType, JwtPayload, UserLoginType } from "../types/types";
 import { User } from "../models";
 
