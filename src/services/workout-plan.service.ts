@@ -19,7 +19,7 @@ export const deletePlan = async (plan_id: number) => {
 }
 
 export const getPlanId = async (user_id: number): Promise<PlanIdType | null> => {
-    return await WorkoutPlan.findOne({ where: { user_id } }).then((plan) => plan?.get());
+    return await WorkoutPlan.findOne({ where: { user_id } }).then((plan) => plan?.get("plan_id") as PlanIdType | null);
 }
 
 export const getAllPlanIds = async (user_id: number) => {
