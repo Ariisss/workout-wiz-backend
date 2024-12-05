@@ -10,10 +10,11 @@ import exercisesRoutes from './routes/exercises.routes';
 import exerciseLogRoutes from './routes/exercise-log.routes';
 import workoutPlanRoutes from './routes/workout-plan.routes';
 import cors from 'cors'
+import corsOptions from './config/cors.config';
 
 const app: Express = express();
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
