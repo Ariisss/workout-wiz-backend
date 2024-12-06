@@ -10,7 +10,7 @@ const User = sequelize.define('User', {
     },
     username: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         unique: true
     },
     email: {
@@ -24,19 +24,19 @@ const User = sequelize.define('User', {
     },
     sex: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     date_of_birth: {
         type: DataTypes.DATE,
-        allowNull: false
+        allowNull: true
     },
     weight: {
         type: DataTypes.FLOAT,
-        allowNull: false
+        allowNull: true
     },
     height: {
         type: DataTypes.FLOAT,
-        allowNull: false
+        allowNull: true
     }
 }, {
     underscored: true,
