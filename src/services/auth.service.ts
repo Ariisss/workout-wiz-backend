@@ -19,7 +19,7 @@ export const register = async (user: UserRegisterType) => {
     // console.log("JKLJKL")
     const hashedPassword = await hashPassword(user.password);
 
-    const newUser = await User.create({ ...user, password: hashedPassword });
+    const newUser = await User.create({ email: user.email, password: hashedPassword });
 
     // console.log("test")
     const { password, ...userWithoutPassword } = newUser.get() as UserType;
@@ -27,7 +27,6 @@ export const register = async (user: UserRegisterType) => {
     const payload: JwtPayload = {
         id: userWithoutPassword.user_id,
         email: userWithoutPassword.email,
-        username: userWithoutPassword.username
     }
 
     return {
@@ -58,7 +57,6 @@ export const login = async (user: UserLoginType) => {
     const payload: JwtPayload = {
         id: userData.user_id,
         email: userData.email,
-        username: userData.username
     }
 
     return {
