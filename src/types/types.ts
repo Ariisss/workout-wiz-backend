@@ -4,13 +4,11 @@ import { GoalType, IntensityLevel } from './workout-types';
 // user type
 export interface UserType {
     user_id: number;
-    first_name: string;
-    last_name: string;
     username: string;
     email: string;
     password: string;
-    sex: string;
-    age: number;
+    sex: Boolean;
+    dob: Date,
     height: number;
     weight: number;
     createdAt: Date;
