@@ -11,10 +11,12 @@ import exerciseLogRoutes from './routes/exercise-log.routes';
 import workoutPlanRoutes from './routes/workout-plan.routes';
 import cors from 'cors'
 import corsOptions from './config/cors.config';
+import cookieParser from 'cookie-parser';
 
 const app: Express = express();
 
 app.use(cors(corsOptions));
+app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
