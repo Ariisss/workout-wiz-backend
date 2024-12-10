@@ -3,7 +3,11 @@ import { UserType } from "../types/types";
 import { hashPassword } from "../utils/password.utils";
 
 export const getUser = async (userId: number) => {
-    const user = await User.findByPk(userId);
+    const user = await User.findByPk(userId, {
+        attributes: {
+            exclude: ['password']
+        }
+    });
     return user;
 }
 
