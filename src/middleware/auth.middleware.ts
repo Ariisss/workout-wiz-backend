@@ -13,7 +13,7 @@ declare global{
 // validate jwt tokens
 export function authMiddleware(req: Request, res: Response, next: NextFunction) {
 
-  const token = req.headers.authorization?.split(' ')[1];
+  const token = req.cookies.token;
 
   if (!token) {
     res.status(401).json({ message: 'No token provided' });
