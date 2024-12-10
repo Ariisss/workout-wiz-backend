@@ -43,12 +43,7 @@ export const login = async (user: UserLoginType) => {
 
     const userData = existingUser.get() as UserType;
 
-    // console.log('pass:', user.password);
-    // console.log('hash:', userData.password);
-
     const checkPassword = await comparePasswords(user.password, userData.password)
-
-    // console.log("checkPassword: ", checkPassword)
 
     if(!checkPassword) {
         throw new Error('Invalid password');
