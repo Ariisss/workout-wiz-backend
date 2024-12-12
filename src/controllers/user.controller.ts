@@ -3,11 +3,7 @@ import { update, changePassword, deleteUser, updateHealthMetrics, getUser } from
 
 export const updateUser = async (req: Request, res: Response) => {
     try {
-        const parsedUserId = parseInt(req.params.userId);
-        if (!parsedUserId || isNaN(parsedUserId)) {
-            res.status(400).json({ error: 'Invalid user ID' });
-            return;
-        }
+        const parsedUserId = req.user.id;
  
         const user = await update(parsedUserId, req.body);
         if (!user) {
