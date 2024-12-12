@@ -14,8 +14,17 @@ const Preferences = sequelize.define('Preferences', {
         allowNull: false
     },
     goal_type: {
-        type: DataTypes.ENUM(...Object.values(GOAL_TYPES)),
-        allowNull: false
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            isValidGoalType(value: string) {
+                const goals = value.split(',');
+                const validGoals = Object.values(GOAL_TYPES) as string[];
+                if (!goals.every(goal => validGoals.includes(goal))) {
+                    throw new Error('Invalid goal type');
+                }
+            }
+        }
     },
     with_gym: {
         type: DataTypes.BOOLEAN,
