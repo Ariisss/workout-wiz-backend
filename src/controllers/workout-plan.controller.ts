@@ -20,13 +20,11 @@ export const generateFromPreferences = async (req: Request, res: Response) => {
 
         const [currentPreference] = preferences;
         
+        console.log("Current Preferences: ", currentPreference)
+
         const workoutPreference: WorkoutPreferenceType = {
-            preference_id: currentPreference.get('preference_id') as number,
-            user_id: currentPreference.get('user_id') as number,
-            goal_type: currentPreference.get('goal_type') as GoalType,
-            with_gym: currentPreference.get('with_gym') as boolean,
-            workout_days: currentPreference.get('workout_days') as string,
-            intensity: currentPreference.get('intensity') as IntensityLevel
+            ...currentPreference.get(),
+            goal_type: currentPreference.get('goal_type')
         };
 
         const workoutPlan = await generateWorkoutPlans(workoutPreference);

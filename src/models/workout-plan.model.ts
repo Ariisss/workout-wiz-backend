@@ -24,7 +24,7 @@ const WorkoutPlan = sequelize.define(
             allowNull: false
         },
         goal: {
-            type: DataTypes.ENUM(...Object.values(GOAL_TYPES)),
+            type: DataTypes.STRING,
             allowNull: false
         },
         duration_weeks: {
