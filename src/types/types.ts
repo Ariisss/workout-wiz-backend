@@ -8,7 +8,7 @@ export interface UserType {
     email: string;
     password: string;
     sex: Boolean;
-    dob: Date,
+    dob: string,
     height: number;
     weight: number;
     createdAt: Date;
