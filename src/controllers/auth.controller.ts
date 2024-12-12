@@ -4,6 +4,14 @@ import { register, login } from "../services/auth.service";
 export const registerController = async (req: Request, res: Response) => {
     try {
         const result = await register(req.body);
+
+        res.cookie('token', result.token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            maxAge: 6 * 3600000
+        });
+
         res.status(201).json({ 
             success: true,
             data: result,
