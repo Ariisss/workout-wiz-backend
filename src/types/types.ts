@@ -39,7 +39,7 @@ export interface UserLoginType {
 export interface WorkoutPreferenceType {
   preference_id: number;
   user_id: number;
-  goal_type: GoalType;
+  goal_type: string;
   with_gym: boolean;
   workout_days: string;
   intensity: IntensityLevel;
@@ -52,7 +52,7 @@ export interface WorkoutPlanType {
   user_id: number;
   plan_name: string;
   description: string;
-  goal: GoalType;
+  goal: GoalType[];
   duration_weeks: number;
   workout_days: string;
   intensity: IntensityLevel;
