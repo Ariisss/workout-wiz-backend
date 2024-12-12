@@ -4,9 +4,10 @@ import { AIGenerationLog } from '../models';
 import { createAILog } from './ai-log.service';
 import { createPlan } from './workout-plan.service';
 import { createPlanExerciseBulk } from './exercises.service';
+import { GoalType } from '../types/workout-types';
 
 export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
-    const prompt = `Create a personalized workout plan with these requirements:
+    const prompt = `Create a unique and personalized workout plan with these requirements:
         - Focus: ${preferences.goal_type}
         - Experience Level: ${preferences.intensity}
         - Equipment: ${preferences.with_gym ? 'Full gym access' : 'Bodyweight exercises only'}
@@ -28,8 +29,8 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
        Required JSON format:
         [
             {
-                "Plan Name": "Create a descriptive name",
-                "Description": "Detailed plan description",
+                "Plan Name": "Unique name based on goals",
+                "Description": "Detailed CUSTOM description",
                 "Goal": "${preferences.goal_type}",
                 "Duration_Weeks": Strictly integer,
                 "Intensity": "${preferences.intensity}",
@@ -55,7 +56,7 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
         const model = genAI.getGenerativeModel({
             model: "gemini-1.5-pro",
             generationConfig: {
-                temperature: 0.7,
+                temperature: 0.5,
                 maxOutputTokens: 20000,
                 topK: 40,
                 topP: 0.8,
