@@ -34,7 +34,8 @@ export const computeCaloriesBurned = async (
 
     const met = exercise.get('met_value') as number;
     
-    const calories = (met * weight_kg * 3.5 * duration_mins) / 200;
+    const adjustedDuration = Math.max(duration_mins, 1);
+    const calories = Math.round((met * weight_kg * 3.5 * adjustedDuration) / 200);
     
     return calories;
 }
