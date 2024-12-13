@@ -23,7 +23,7 @@ export const logExercise = async (req: Request, res: Response) => {
 
         const exerciseLogData = {
             ...req.body,
-            duration_mins: plan_exercise.duration_mins,
+            duration_mins: plan_exercise.duration_mins * plan_exercise.sets * plan_exercise.reps,
             user_id: user.user_id,
             calories_burned: caloriesBurned,
             date: new Date()
