@@ -101,3 +101,23 @@ export const getWorkoutPlanExercises = async (req: Request, res: Response) => {
         }); 
     }
 }
+
+export const getAllWorkoutPlans = async (req: Request, res: Response) => {
+    try {
+
+        const userId = req.user.id
+
+        const workoutPlans = await getAllPlans(userId); 
+
+        res.status(200).json({
+            success: true,
+            data: workoutPlans
+        });
+    } catch (error) {
+        console.error('Workout Plans Retrieval Error:', error);
+        res.status(500).json({
+            error: 'Failed to retrieve workout plans',
+            details: error instanceof Error ? error.message : 'Unknown error'
+        });
+    }
+};
