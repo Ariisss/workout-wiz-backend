@@ -1,5 +1,5 @@
 import { ExerciseLog } from "../models";
-import { ExerciseLogType } from "../types/types";
+import { ExerciseLogType, PlanExerciseType } from "../types/types";
 import { getPlanExerciseById } from "./exercises.service";
 
 export const createLog = async (exerciseLog: Omit<ExerciseLogType, 'log_id'>) => {
@@ -32,10 +32,24 @@ export const computeCaloriesBurned = async (
         throw new Error('Exercise not found');
     }
 
-    const met = exercise.get('met_value') as number;
+    const ex = exercise.get() as PlanExerciseType;
+
+    if(ex.sets > 1 && ex.sets > 1){
+
+        const timePerRep = 0.0667;
+        
+        const totalTime = ex.sets * ex.reps * timePerRep;
+        
+        const restTimePerSet = 1.5; 
+        const totalRestTime = (ex.sets - 1) * restTimePerSet;
+        
+        const totalDuration = totalTime + totalRestTime;
+        
+        const adjustedMet = ex.met_value * 1.5;
+        
+        return Math.round((adjustedMet * weight_kg * 3.5 * totalDuration) / 200);
+
+    }
     
-    const adjustedDuration = Math.max(duration_mins, 1);
-    const calories = Math.round((met * weight_kg * 3.5 * adjustedDuration) / 200);
-    
-    return calories;
+    return Math.round((ex.met_value * weight_kg * 3.5 * Math.max(duration_mins, 1)) / 200);
 }
