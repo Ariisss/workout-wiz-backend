@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { computeCaloriesBurned, createLog, deleteLog, getLogById, getLogs } from "../services/exercise-log.service";
 import { getUser } from "../services/user.service";
 import { UserType } from "../types/types";
+import { getPlanExerciseById } from "../services/exercises.service";
 
 export const logExercise = async (req: Request, res: Response) => {
     try{
@@ -14,12 +15,15 @@ export const logExercise = async (req: Request, res: Response) => {
         }
 
         const user = userModel.get() as UserType;
+        const { plan_exercise_id } = req.body;
+        const exercise = await getPlanExerciseById(plan_exercise_id)
+        const plan_exercise = exercise?.get()
 
-        const { duration_mins, plan_exercise_id } = req.body;
-        const caloriesBurned = await computeCaloriesBurned(duration_mins, plan_exercise_id, user.weight);
+        const caloriesBurned = await computeCaloriesBurned(plan_exercise.duration_mins, plan_exercise_id, user.weight);
 
         const exerciseLogData = {
             ...req.body,
+            duration_mins: plan_exercise.duration_mins,
             user_id: user.user_id,
             calories_burned: caloriesBurned,
             date: new Date()
