@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { update, changePassword, deleteUser, updateHealthMetrics, getUser } from "../services/user.service";
+import { update, changePassword, deleteUser, getUser } from "../services/user.service";
 
 export const updateUser = async (req: Request, res: Response) => {
     try {

@@ -37,6 +37,11 @@ const User = sequelize.define('User', {
     height: {
         type: DataTypes.FLOAT,
         allowNull: true
+    },
+    weeklyStreak: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: 0
     }
 }, {
     underscored: true,
