@@ -4,7 +4,7 @@ import { update, changePassword, deleteUser, getUser } from "../services/user.se
 export const updateUser = async (req: Request, res: Response) => {
     try {
         const parsedUserId = req.user.id;
- 
+
         const user = await update(parsedUserId, req.body);
         if (!user) {
             res.status(404).json({ error: 'User not found' });
@@ -16,31 +16,32 @@ export const updateUser = async (req: Request, res: Response) => {
             message: 'User updated successfully'
         });
     } catch (error) {
-        res.status(500).json({ 
+        res.status(500).json({
             error: error instanceof Error ? error.message : 'Internal server error'
         });
     }
 }
 
 export const updatePassword = async (req: Request, res: Response) => {
-    try{
-        const parsedUserId = parseInt(req.params.userId); 
-        if(!parsedUserId || isNaN(parsedUserId)){
-            res.status(400).json({ error: 'Invalid user ID' });
+    try {
+        const parsedUserId = req.user.id;
+
+        if (!parsedUserId || isNaN(parsedUserId)) {
+            res.status(400).json({ error: 'Invalid credentials' });
             return
         }
 
-        const user = await changePassword(parsedUserId, req.body.newPassword);
-        if(!user){
-            res.status(404).json({ error: 'User not found' });
+        const user = await changePassword(parsedUserId, req.body.oldPassword, req.body.newPassword);
+        if (!user) {
+            res.status(403).json({ error: 'Invalid Credentials' });
             return
         }
 
-         res.status(200).json({
+        res.status(200).json({
             success: true,
             message: 'Password updated successfully',
         });
-    }catch(error){
+    } catch (error) {
         if (error instanceof Error) {
             res.status(400).json({ error: error.message });
             return
@@ -50,7 +51,7 @@ export const updatePassword = async (req: Request, res: Response) => {
 }
 
 export const removeUser = async (req: Request, res: Response) => {
-    try{
+    try {
         const { userId } = req.params;
 
         const parsedUserId = parseInt(userId);
@@ -60,17 +61,17 @@ export const removeUser = async (req: Request, res: Response) => {
         }
 
         const success = await deleteUser(parsedUserId);
-        if(!success){
+        if (!success) {
             res.status(404).json({ error: 'Deletion failed' });
             return
         }
 
-         res.status(200).json({
+        res.status(200).json({
             success: true,
             message: 'User deleted successfully',
         });
 
-    }catch(error){
+    } catch (error) {
         if (error instanceof Error) {
             res.status(400).json({ error: error.message });
             return
@@ -80,7 +81,7 @@ export const removeUser = async (req: Request, res: Response) => {
 }
 
 export const getUserProfile = async (req: Request, res: Response) => {
-    try{
+    try {
         const user = await getUser(req.user.id);
 
         if (!user) {
