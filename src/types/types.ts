@@ -11,8 +11,15 @@ export interface UserType {
     dob: string,
     height: number;
     weight: number;
+    weeklyStreak: number;
     createdAt: Date;
     updatedAt: Date;
+}
+
+export interface WeeklyProgress {
+  assignedExercises: { [key: string]: number[] };
+  completedExercises: { [key: string]: number[] };
+  isWeekComplete: boolean;
 }
 
 // for user reg
