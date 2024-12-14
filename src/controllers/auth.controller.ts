@@ -30,7 +30,6 @@ export const loginController = async (req: Request, res: Response) => {
         const result = await login(req.body);
 
         res.cookie('token', result.token, {
-            httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict',
             maxAge: 6 * 3600000
