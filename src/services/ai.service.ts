@@ -115,7 +115,8 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
             goal: parsedResponse[0].Goal,
             duration_weeks: parsedResponse[0].Duration_Weeks,
             workout_days: parsedResponse[0].Workout_Days,
-            intensity: parsedResponse[0].Intensity
+            intensity: parsedResponse[0].Intensity,
+            is_active: false
         };
 
         const createdWorkoutPlan = await createPlan(workoutPlan);

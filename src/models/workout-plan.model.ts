@@ -38,7 +38,7 @@ const WorkoutPlan = sequelize.define(
         is_active: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
-            defaultValue: true
+            defaultValue: false
         }
     }, {
         tableName: "workout_plans",
