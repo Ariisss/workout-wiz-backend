@@ -25,7 +25,7 @@ export const updateUser = async (req: Request, res: Response) => {
 export const updatePassword = async (req: Request, res: Response) => {
     try {
         const parsedUserId = req.user.id;
-        const { oldPassword, newPassword } = req.body.values
+        const { oldPassword, newPassword } = req.body
 
         if (!parsedUserId || isNaN(parsedUserId)) {
             res.status(400).json({ error: 'Invalid credentials' });
