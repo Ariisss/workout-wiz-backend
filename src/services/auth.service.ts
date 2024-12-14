@@ -6,22 +6,18 @@ import { User } from "../models";
 export const register = async (user: UserRegisterType) => {
 
     const existingUser = await User.findOne({ where: { email: user.email } });
-    // console.log("ASDASD")
     if (existingUser) {
         throw new Error('User with this email already exists');
     }
 
     if (!validatePassword(user.password)) {
-        // console.log('USDFOASDF');
         throw new Error('Password must contain at least 8 characters, 1 uppercase, 1 lowercase, and 1 number');
     }
 
-    // console.log("JKLJKL")
     const hashedPassword = await hashPassword(user.password);
 
-    const newUser = await User.create({ email: user.email, password: hashedPassword });
+    const newUser = await User.create({ email: user.email, password: hashedPassword, weeklyStreak: 0 });
 
-    // console.log("test")
     const { password, ...userWithoutPassword } = newUser.get() as UserType;
 
     const payload: JwtPayload = {
