@@ -1,6 +1,6 @@
 import genAI from '../config/ai.config';
 import { WorkoutPreferenceType, PlanExerciseResponseType } from '../types/types';
-import { AIGenerationLog } from '../models';
+import { AIGenerationLog, WorkoutPlan } from '../models';
 import { createAILog } from './ai-log.service';
 import { createPlan } from './workout-plan.service';
 import { createPlanExerciseBulk } from './exercises.service';
@@ -108,6 +108,13 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
 
         await createAILog(preferences.user_id, prompt, cleanedText, 'completed');
 
+        const existingWorkoutPlan = await WorkoutPlan.findOne({
+            where: {
+              user_id: preferences.user_id,
+              is_active: true
+            }
+          });
+        
         const workoutPlan = {
             user_id: preferences.user_id,
             plan_name: parsedResponse[0]["Plan Name"],
@@ -116,7 +123,7 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
             duration_weeks: parsedResponse[0].Duration_Weeks,
             workout_days: parsedResponse[0].Workout_Days,
             intensity: parsedResponse[0].Intensity,
-            is_active: false
+            is_active: !existingWorkoutPlan
         };
 
         const createdWorkoutPlan = await createPlan(workoutPlan);
