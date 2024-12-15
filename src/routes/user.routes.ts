@@ -6,7 +6,7 @@ const router = Router();
 
 router.get('/', authMiddleware, getUserProfile);
 router.put('/', authMiddleware, updateUser);
-router.put('/:userId/password', authMiddleware, updatePassword);
+router.put('/password', authMiddleware, updatePassword);
 router.delete('/:userId', authMiddleware, removeUser);
 
 export default router;

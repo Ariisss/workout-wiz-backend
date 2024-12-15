@@ -34,7 +34,7 @@ export const register = async (user: UserRegisterType) => {
 export const login = async (user: UserLoginType) => {
     const existingUser = await User.findOne({ where: { email: user.email } });
     if (!existingUser) {
-        throw new Error('User with this email does not exist');
+        throw new Error('Invalid credentials');
     }
 
     const userData = existingUser.get() as UserType;
@@ -42,7 +42,7 @@ export const login = async (user: UserLoginType) => {
     const checkPassword = await comparePasswords(user.password, userData.password)
 
     if(!checkPassword) {
-        throw new Error('Invalid password');
+        throw new Error('Invalid credentials');
     }
 
     const payload: JwtPayload = {
