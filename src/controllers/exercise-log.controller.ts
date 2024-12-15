@@ -1,13 +1,15 @@
 import { Request, Response } from "express";
 import { computeCaloriesBurned, createLog, deleteLog, getLogById, getLogs } from "../services/exercise-log.service";
 import { getUser } from "../services/user.service";
-import { UserType } from "../types/types";
+import { PlanExerciseType, UserType } from "../types/types";
 import { getPlanExerciseById } from "../services/exercises.service";
 
 export const logExercise = async (req: Request, res: Response) => {
     try{
 
         const userModel = await getUser(req.user.id);
+
+        // console.log("json body: " + req.body)
 
         if (!userModel) {
             res.status(404).json({ error: 'User not found' });
@@ -17,9 +19,17 @@ export const logExercise = async (req: Request, res: Response) => {
         const user = userModel.get() as UserType;
         const { plan_exercise_id } = req.body;
         const exercise = await getPlanExerciseById(plan_exercise_id)
-        const plan_exercise = exercise?.get()
+        const plan_exercise = await exercise?.get() as PlanExerciseType
 
+        if(!plan_exercise){
+            console.log("AHHHH")
+        }
         const caloriesBurned = await computeCaloriesBurned(plan_exercise.duration_mins, plan_exercise_id, user.weight);
+
+        if (!req.body) {
+            res.status(400).send({ error: 'Missing required fields' });
+            return 
+          }
 
         const exerciseLogData = {
             ...req.body,
