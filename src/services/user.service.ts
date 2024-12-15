@@ -99,6 +99,7 @@ cron.schedule('59 23 * * SUN', async (): Promise<void> => {
                 include: [
                     {
                         model: WorkoutPlan,
+                        as: 'workoutPlan',
                         where: {
                             user_id: userId,
                             is_active: true,
