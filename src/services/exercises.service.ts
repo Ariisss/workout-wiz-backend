@@ -21,7 +21,16 @@ export const getSinglePlanExercises = async (plan_id: number) => {
 }
 
 export const getPlanExerciseById = async (plan_exercise_id: number) => {
-    return await PlanExercise.findByPk(plan_exercise_id);
+    try {
+        const exercise = await PlanExercise.findByPk(plan_exercise_id);
+        if (!exercise) {
+            throw new Error(`Exercise with id ${plan_exercise_id} not found`);
+        }
+        return exercise;
+    } catch (error) {
+        console.error('Error fetching exercise:', error);
+        throw error;
+    }
 }
 
 export const updatePlanExercise = async (plan_exercise_id: number, planExercise: Omit<PlanExerciseType, 'plan_exercise_id'>) => {
