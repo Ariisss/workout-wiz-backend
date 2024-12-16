@@ -17,7 +17,7 @@ const PlanExercise = sequelize.define('PlanExercise', {
         allowNull: false
     },
     description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false
     },
     duration_mins: {
