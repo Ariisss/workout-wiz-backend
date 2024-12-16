@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getPlanById, deletePlan, getAllPlans, getPlansAndExercises } from "../services/workout-plan.service";
+import { getPlanById, deletePlan, getAllPlans, getPlansAndExercises, switchActivePlan } from "../services/workout-plan.service";
 import { generateWorkoutPlans } from "../services/ai.service";
 import { getPreference } from "../services/workout-preference.service";
 import { WorkoutPreferenceType } from "../types/types";
@@ -121,3 +121,23 @@ export const getAllWorkoutPlans = async (req: Request, res: Response) => {
         });
     }
 };
+
+export const updateActiveWorkoutPlan = async (req: Request, res: Response) => {
+    try {
+        const { planId } = req.body;
+
+        if (!planId) {
+            return res.status(400).json({ error: 'Plan ID is required' });
+        }
+
+        await switchActivePlan(req.user.id, planId);
+
+        res.status(200).json({ success: true, message: 'Active workout plan updated successfully' });
+    } catch (error) {
+        console.error('Workout Plan Update Error:', error);
+        res.status(500).json({
+            error: 'Failed to update active workout plan',
+            details: error instanceof Error ? error.message : 'Unknown error'
+        });
+    }
+}

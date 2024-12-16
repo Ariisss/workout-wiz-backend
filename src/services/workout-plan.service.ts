@@ -38,3 +38,7 @@ export const getAllPlans = async (user_id: number) => {
 export const getPlansAndExercises = async (user_id: number) => {
     return await WorkoutPlan.findAll({ where: { user_id }, include: [{ model: PlanExercise, as: 'planExercises' }] });
 }
+
+export const switchActivePlan = async (user_id: number, plan_id: number) => {
+    return await WorkoutPlan.update({ is_active: false }, { where: { is_active: true, user_id } }).then(() => WorkoutPlan.update({ is_active: true }, { where: { plan_id } }));
+}
