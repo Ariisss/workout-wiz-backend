@@ -21,9 +21,6 @@ export const logExercise = async (req: Request, res: Response) => {
         const exercise = await getPlanExerciseById(plan_exercise_id)
         const plan_exercise = await exercise?.get() as PlanExerciseType
 
-        if(!plan_exercise){
-            console.log("AHHHH")
-        }
         const caloriesBurned = await computeCaloriesBurned(plan_exercise.duration_mins, plan_exercise_id, user.weight);
 
         if (!req.body) {
@@ -33,6 +30,7 @@ export const logExercise = async (req: Request, res: Response) => {
 
         const exerciseLogData = {
             ...req.body,
+            exercise_name: plan_exercise.exercise_name,
             duration_mins: plan_exercise.duration_mins * plan_exercise.sets * plan_exercise.reps,
             user_id: user.user_id,
             calories_burned: caloriesBurned,
