@@ -127,7 +127,8 @@ export const updateActiveWorkoutPlan = async (req: Request, res: Response) => {
         const { planId } = req.body;
 
         if (!planId) {
-            return res.status(400).json({ error: 'Plan ID is required' });
+            res.status(400).json({ error: 'Plan ID is required' });
+            return;
         }
 
         await switchActivePlan(req.user.id, planId);
