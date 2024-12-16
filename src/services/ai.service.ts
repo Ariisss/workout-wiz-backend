@@ -56,11 +56,11 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
             const model = genAI.getGenerativeModel({
                 model: "gemini-1.5-pro",
                 generationConfig: {
-                    temperature: 0.5,
+                    temperature: 0.8,
                     maxOutputTokens: 20000,
                     topK: 40,
                     topP: 0.8,
-                    candidateCount: 1
+                    // candidateCount: 1
                 }
             });
     
