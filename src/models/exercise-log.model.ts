@@ -8,6 +8,10 @@ const ExerciseLog = sequelize.define('ExerciseLog', {
         autoIncrement: true,
         allowNull: false
     },
+    exercise_name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     user_id: {
         type: DataTypes.INTEGER,
         allowNull: false

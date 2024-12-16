@@ -90,6 +90,7 @@ export interface PlanExerciseType {
 
 export interface ExerciseLogType {
   log_id: number;
+  exercise_name: string;
   user_id: number;
   plan_exercise_id: number;
   date: Date;
