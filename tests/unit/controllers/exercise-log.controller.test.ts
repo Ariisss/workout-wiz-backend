@@ -10,7 +10,6 @@ vi.mock('../../../src/services/exercise-log.service');
 vi.mock('../../../src/services/user.service');
 vi.mock('../../../src/services/exercises.service');
 
-// Extend the Express Request type
 interface CustomRequest extends Request {
     user?: {
         id: number;
