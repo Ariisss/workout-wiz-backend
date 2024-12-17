@@ -38,9 +38,9 @@ export interface UserLoginType {
   password: string;
 }
 
-// export interface AuthenticatedRequest extends Request {
-//   user: JwtPayload;
-// } 
+export interface AuthenticatedRequest extends Request {
+  user: JwtPayload;
+} 
 
 // workout preference types
 export interface WorkoutPreferenceType {
