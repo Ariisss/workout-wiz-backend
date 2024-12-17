@@ -1,12 +1,18 @@
 import genAI from '../config/ai.config';
 import { WorkoutPreferenceType, PlanExerciseResponseType } from '../types/types';
 import { AIGenerationLog, WorkoutPlan } from '../models';
-import { createAILog } from './ai-log.service';
+import { createAILog } from '../services/ai-log.service';
 import { createPlan } from './workout-plan.service';
 import { createPlanExerciseBulk } from './exercises.service';
 import { GoalType } from '../types/workout-types';
 
 export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
+    const existingPlans = await WorkoutPlan.findAll({ 
+        where: { user_id: preferences.user_id },
+        attributes: ['plan_name'] 
+    });
+    const existingPlanNames = existingPlans.map(plan => plan.get('plan_name'));
+
     const prompt = `Create a unique and personalized workout plan with these requirements:
         - Focus: ${preferences.goal_type}
         - Experience Level: ${preferences.intensity}
@@ -14,6 +20,7 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
         - Schedule: ${preferences.workout_days.split('').map((day, index) => 
             day === '1' ? ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'][index] : ''
         ).filter(Boolean).join(', ')}
+        - Existing Plan Names to Avoid: ${existingPlanNames.join(', ')}
 
         Important guidelines:
         - Include exactly 5 exercises for each workout day
@@ -25,6 +32,7 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
         - Strictly use double quotes for all property names and values
         - No code blocks, no newlines, no extra spaces, no extra commas, no extra quotes
         - Only return the JSON containing the plan, with the plan object having its own properties, then an array of exercises, each with their own properties
+        - Ensure the Plan Name is COMPLETELY different from the list of Existing Plan Names
         
        Required JSON format:
         [
