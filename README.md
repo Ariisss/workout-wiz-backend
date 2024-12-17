@@ -9,6 +9,11 @@ WorkoutWiz is a fitness tracking app that helps users create and manage personal
 ## Frontend/Client Repository Link:
 [Workout Wiz - Fitness Tracker App (Client)](https://github.com/Ariisss/workout-wiz-client)
 
+## Members:
+- **Prince Isaac Pantino**
+- **Fitzsixto Angelo Singh**
+- **Matthew Cedric Calaycay**
+
 ## Features
 
 - **AI-powered Workout Plan Generation**: Create personalized workout plans using Google's Generative AI
