@@ -4,7 +4,10 @@ A smart fitness tracking application with AI-powered workout plan generation.
 
 ## Overview
 
-WorkoutWiz is a fitness tracking backend service that helps users create and manage personalized workout plans. It leverages Google's Generative AI to create custom workout routines based on user preferences, fitness levels, and goals.
+WorkoutWiz is a fitness tracking app that helps users create and manage personalized workout plans. It leverages Google's Generative AI to create custom workout routines based on user preferences, fitness levels, and goals.
+
+## Frontend/CLient Repository Link:
+[Workout Wiz - Fitness Tracker App (Client)](https://github.com/Ariisss/workout-wiz-client)
 
 ## Features
 
