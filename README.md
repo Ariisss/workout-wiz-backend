@@ -47,7 +47,7 @@ cd workout-wiz-server
 npm install
 ```
 
-3. Create a `.env` file with the following environment variables:
+3. Create a `.env` file with the expected environment variables:
 ```bash
 PORT=3000
 DATABASE_URL=postgresql://username:password@localhost:5432/workout-wiz
