@@ -3,7 +3,6 @@ import { Request, Response } from 'express';
 import { registerController, loginController, logoutController } from '../../../src/controllers/auth.controller';
 import * as authService from '../../../src/services/auth.service';
 
-// Mock the auth service
 vi.mock('../../../src/services/auth.service');
 
 describe('Auth Controller', () => {
