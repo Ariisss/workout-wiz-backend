@@ -29,7 +29,7 @@ export async function generateWorkoutPlans(preferences: WorkoutPreferenceType) {
        Required JSON format:
         [
             {
-                "Plan Name": "Unique name based on goals, make it 1 string only. Spaces are okay but no colons or other symbols",
+                "Plan Name": "Unique name based on goals, make it 1 string only. Spaces are okay but no colons or other symbols. make it unique and creative please, it will be used as the plan name",
                 "Description": "Detailed CUSTOM description",
                 "Goal": "${preferences.goal_type}",
                 "Duration_Weeks": Strictly integer,
